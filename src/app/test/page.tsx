@@ -1,22 +1,21 @@
 import React from 'react';
 
 type User = {
-  id: string; // UUID 형식
-  firstName: string; // 이름
-  lastName: string; // 성
+  id: string;
+  firstName: string;
+  lastName: string;
 };
 
-async function getUser(): Promise<User> {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/test`, {
-    cache: 'no-store',
-  }); // 캐싱 방지
-  if (!response.ok) {
-    throw new Error('Failed to fetch user');
+export default async function Page() {
+  // User 정보를 가져오는 컴포넌트
+  async function getUser(): Promise<User> {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/test`, {
+      cache: 'no-store',
+    });
+    console.log(response);
+    return response.json();
   }
-  return response.json();
-}
 
-const Page = async () => {
   const user = await getUser();
 
   return (
@@ -27,6 +26,4 @@ const Page = async () => {
       <p>Last Name: {user.lastName}</p>
     </div>
   );
-};
-
-export default Page;
+}

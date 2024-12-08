@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My-Trip
 
-## Getting Started
+## IA
 
-First, run the development server:
+```mermaid
+erDiagram
+    User {
+        string userId
+        string name
+        string email
+        string profileImage
+    }
+    Trip {
+        string tripId
+        string name
+        string creatorId
+        string[] participants
+        boolean isPrivate
+        string shareLink
+    }
+    DayPlan {
+        string dayPlanId
+        string tripId
+        int dayNumber
+        datetime date
+    }
+    Destination {
+        string destinationId
+        string dayPlanId
+        string name
+        object location
+        datetime plannedArrivalTime
+        duration travelTimeFromPrevious
+    }
+    Comment {
+        string commentId
+        string destinationId
+        string authorId
+        string content
+        boolean isPrivate
+        datetime createdAt
+    }
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+    User ||--o{ Trip : "can create"
+    Trip ||--o{ DayPlan : "has"
+    DayPlan ||--o{ Destination : "includes"
+    Destination ||--o{ Comment : "has"
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 메뉴구조도
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```mermaid
+graph TD
+    Home[홈]
+    Login[로그인/회원가입]
+    MyTrips[내 여행 리스트]
+    TripDetail[여행 상세]
+    ManageParticipants[참가자 관리]
+    ShareTrip[여행 계획 공유]
+    PublicTrips[공유된 여행 보기]
+    DayPlanDetail[날짜별 여행 상세]
+    DestinationDetail[여행지 상세]
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    Home --> Login
+    Home --> MyTrips
+    Home --> PublicTrips
+    MyTrips --> TripDetail
+    TripDetail --> ManageParticipants
+    TripDetail --> ShareTrip
+    TripDetail --> DayPlanDetail
+    DayPlanDetail --> DestinationDetail
+    DestinationDetail --> Comments[댓글]
+```
 
-## Learn More
+## 유저 플로우
 
-To learn more about Next.js, take a look at the following resources:
+```mermaid
+flowchart TD
+    Start[웹사이트 오픈] --> Login[로그인/회원가입]
+    Login -->|로그인 성공| Home[홈 화면]
+    Home -->|여행 리스트 보기| MyTrips[내 여행 리스트]
+    Home -->|공유된 계획 보기| PublicTrips[공유된 여행 계획]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    MyTrips -->|새 여행 계획 생성| CreateTrip[여행 계획 생성]
+    MyTrips -->|여행 상세 보기| TripDetail[여행 상세]
+    TripDetail -->|참가자 관리| ManageParticipants[참가자 초대]
+    TripDetail -->|공유 버튼 클릭| ShareTrip[공유 상태 전환]
+    TripDetail -->|날짜 추가| DayPlanDetail[날짜별 여행 계획]
+    DayPlanDetail -->|여행지 추가| DestinationDetail[여행지 상세]
+    DestinationDetail -->|댓글 작성| Comments[댓글 관리]
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    PublicTrips -->|공유된 계획 클릭| PublicTripDetail[공유된 여행 상세]
+    PublicTripDetail -->|댓글 작성| PublicComments[공개 댓글 관리]
 
-## Deploy on Vercel
+    CreateTrip --> MyTrips
+    ManageParticipants --> TripDetail
+    ShareTrip --> PublicTrips
+    DayPlanDetail --> TripDetail
+    Comments --> DestinationDetail
+    PublicComments --> PublicTripDetail
+    End[종료]
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
