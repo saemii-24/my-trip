@@ -6049,6 +6049,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:^1.0.1":
+  version: 1.0.2
+  resolution: "cookie@npm:1.0.2"
+  checksum: 10c0/fd25fe79e8fbcfcaf6aa61cd081c55d144eeeba755206c058682257cb38c4bd6795c6620de3f064c740695bb65b7949ebb1db7a95e4636efb8357a335ad3f54b
+  languageName: node
+  linkType: hard
+
 "core-js-compat@npm:^3.38.0, core-js-compat@npm:^3.38.1":
   version: 3.39.0
   resolution: "core-js-compat@npm:3.39.0"
@@ -10166,6 +10173,7 @@ __metadata:
     prettier: "npm:^3.4.2"
     react: "npm:^18"
     react-dom: "npm:^18"
+    react-router-dom: "npm:^7.0.2"
     storybook: "npm:^8.4.7"
     tailwindcss: "npm:^3.4.1"
     ts-node: "npm:^10.9.2"
@@ -11352,6 +11360,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-router-dom@npm:^7.0.2":
+  version: 7.0.2
+  resolution: "react-router-dom@npm:7.0.2"
+  dependencies:
+    react-router: "npm:7.0.2"
+  peerDependencies:
+    react: ">=18"
+    react-dom: ">=18"
+  checksum: 10c0/eb6fe524792f6cf645872c15ed1beb6aeb778c7c5ebcf6c1d4ccf2bdab7a969313b3fc3b4ec6bc4516bbc91b238f0ef651d9ad2551b2aa9ea54b01653dcd1c98
+  languageName: node
+  linkType: hard
+
+"react-router@npm:7.0.2":
+  version: 7.0.2
+  resolution: "react-router@npm:7.0.2"
+  dependencies:
+    "@types/cookie": "npm:^0.6.0"
+    cookie: "npm:^1.0.1"
+    set-cookie-parser: "npm:^2.6.0"
+    turbo-stream: "npm:2.4.0"
+  peerDependencies:
+    react: ">=18"
+    react-dom: ">=18"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+  checksum: 10c0/f6c04939218a3d7f2b03b215c2299eab4dbb0dea4a16e0acfd8bf181ec69ff42d66abdba10a25cc3297c514f052a0d03bfb80431225eb763bb27e4e5b0b4a106
+  languageName: node
+  linkType: hard
+
 "react@npm:^16.8.0 || ^17.0.0 || ^18.0.0, react@npm:^18":
   version: 18.3.1
   resolution: "react@npm:18.3.1"
@@ -11870,6 +11908,13 @@ __metadata:
   dependencies:
     randombytes: "npm:^2.1.0"
   checksum: 10c0/2dd09ef4b65a1289ba24a788b1423a035581bef60817bea1f01eda8e3bda623f86357665fe7ac1b50f6d4f583f97db9615b3f07b2a2e8cbcb75033965f771dd2
+  languageName: node
+  linkType: hard
+
+"set-cookie-parser@npm:^2.6.0":
+  version: 2.7.1
+  resolution: "set-cookie-parser@npm:2.7.1"
+  checksum: 10c0/060c198c4c92547ac15988256f445eae523f57f2ceefeccf52d30d75dedf6bff22b9c26f756bd44e8e560d44ff4ab2130b178bd2e52ef5571bf7be3bd7632d9a
   languageName: node
   linkType: hard
 
@@ -12846,6 +12891,13 @@ __metadata:
   version: 0.0.1
   resolution: "tty-browserify@npm:0.0.1"
   checksum: 10c0/5e34883388eb5f556234dae75b08e069b9e62de12bd6d87687f7817f5569430a6dfef550b51dbc961715ae0cd0eb5a059e6e3fc34dc127ea164aa0f9b5bb033d
+  languageName: node
+  linkType: hard
+
+"turbo-stream@npm:2.4.0":
+  version: 2.4.0
+  resolution: "turbo-stream@npm:2.4.0"
+  checksum: 10c0/e68b2569f1f16e6e9633d090c6024b2ae9f0e97bfeacb572451ca3732e120ebbb546f3bc4afc717c46cb57b5aea6104e04ef497f9912eef6a7641e809518e98a
   languageName: node
   linkType: hard
 
