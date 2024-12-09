@@ -1,9 +1,13 @@
+'use client';
+
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { useCallback } from 'react';
 import { auth } from '@remote/firebase';
 
 function useGoogleSignin() {
   const signin = useCallback(async () => {
+    if (typeof window === 'undefined') return;
+
     const provider = new GoogleAuthProvider();
 
     try {
@@ -15,6 +19,8 @@ function useGoogleSignin() {
   }, []);
 
   const signout = useCallback(async () => {
+    if (typeof window === 'undefined') return;
+
     try {
       await signOut(auth);
       console.log('User signed out');
@@ -23,7 +29,6 @@ function useGoogleSignin() {
     }
   }, []);
 
-  // 반환값 추가
   return { signin, signout };
 }
 
