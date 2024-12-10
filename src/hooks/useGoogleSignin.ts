@@ -1,23 +1,37 @@
 'use client';
-import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import { useCallback } from 'react';
-import { getAuth } from 'firebase/auth';
 
-const auth = getAuth();
+import { useCallback } from 'react';
+import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { auth } from '@remote/firebase';
 
 function useGoogleSignin() {
-  const signin = useCallback(async () => {
+  const signin = useCallback(() => {
     const provider = new GoogleAuthProvider();
-
-    try {
-      const { user } = await signInWithPopup(auth, provider);
-      console.log('user', user);
-    } catch (error) {}
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user; // 로그인된 사용자는 result.user에서 가져옵니다.
+        console.log(user); // 로그인한 사용자 정보 출력
+        console.log('로그인 되었습니다.');
+      })
+      .catch((error) => {
+        console.error(error.message); // 오류 메시지 출력
+        console.log('로그인 오류 발생');
+      });
   }, []);
+
   const signout = useCallback(() => {
-    signOut(auth);
-
-    return { signin, signout };
+    auth
+      .signOut()
+      .then(() => {
+        console.log('로그아웃 되었습니다.');
+      })
+      .catch((error) => {
+        console.error(error.message); // 오류 메시지 출력
+        console.log('로그아웃 오류 발생');
+      });
   }, []);
+
+  return { signin, signout };
 }
+
 export default useGoogleSignin;

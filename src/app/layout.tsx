@@ -1,12 +1,16 @@
+import type { Metadata } from 'next';
 import './globals.css';
-import Provider from './Provider';
 import { Noto } from '../font';
+
+export const metadata: Metadata = {
+  title: 'my-trip',
+  description: '함께하는 너와 나의 여행, my-trip',
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='ko'>
-      <body className={Noto.variable + ' font'}>
-        <Provider>{children}</Provider>
-      </body>
+    <html lang='ko' className={Noto.variable + ' font'}>
+      <body>{children}</body>
     </html>
   );
 }
