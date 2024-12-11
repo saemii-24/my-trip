@@ -4,7 +4,6 @@ import type { NextRequest } from 'next/server';
 // 로그인된 사용자는 signin 접근 불가, 로그인하지 않은 사용자는 signin으로 리디렉션
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get('AuthToken'); // 쿠키에서 인증 토큰을 가져옵니다.
-  console.log(request);
 
   // 로그인 상태 체크
   if (token) {
