@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import useGoogleSignin from '@hooks/useGoogleSignin';
+import { auth } from '@remote/firebase';
 
 export default function Page() {
-  const { signin, signout, user } = useGoogleSignin();
+  const { signin, signout } = useGoogleSignin();
+  const user = auth.currentUser;
+  console.log(user);
 
   return (
     <div>
