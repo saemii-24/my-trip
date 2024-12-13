@@ -20,6 +20,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "firebase": "^11.0.2",
     "firebase-admin": "^13.0.1",
+    "framer-motion": "^11.14.4",
     "init": "^0.1.2",
     "jsonwebtoken": "^9.0.2",
     "msw": "^2.6.8",
