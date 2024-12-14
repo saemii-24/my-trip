@@ -10817,6 +10817,7 @@ __metadata:
     react: "npm:^18"
     react-dom: "npm:^18"
     react-router-dom: "npm:^7.0.2"
+    split-type: "npm:^0.3.4"
     storybook: "npm:^8.4.7"
     tailwindcss: "npm:^3.4.1"
     ts-node: "npm:^10.9.2"
@@ -12867,6 +12868,13 @@ __metadata:
   version: 0.7.4
   resolution: "source-map@npm:0.7.4"
   checksum: 10c0/dc0cf3768fe23c345ea8760487f8c97ef6fca8a73c83cd7c9bf2fde8bc2c34adb9c0824d6feb14bc4f9e37fb522e18af621543f1289038a66ac7586da29aa7dc
+  languageName: node
+  linkType: hard
+
+"split-type@npm:^0.3.4":
+  version: 0.3.4
+  resolution: "split-type@npm:0.3.4"
+  checksum: 10c0/43cc762363316b8c58b02e97b3dd4c5b4533308bf691c4af0ce947e2dd82a27fc3ee25075c5102b87174ef40aaaae1304d80b1a42f887a24b4d6d0d6bd560181
   languageName: node
   linkType: hard
 

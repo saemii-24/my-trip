@@ -1,41 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
-import admin from 'firebase-admin';
-
-// Firebase Admin SDK 초기화
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-      clientEmail: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL,
-      privateKey: process.env.NEXT_PUBLIC_FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    }),
-  });
-}
+import admin from '@remote/firebaseAdmin';
 
 export async function POST(req: NextRequest) {
   try {
-    const { AuthToken } = await req.json();
+    const authHeader = req.headers.get('Authorization'); // Authorization 헤더에서 토큰 가져오기
 
-    if (!AuthToken) {
-      return new NextResponse('AuthToken이 누락되었습니다.', { status: 400 });
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      // Authorization 헤더가 없거나 Bearer가 아닌 경우
+      return new NextResponse('Authorization 헤더가 없습니다.', { status: 400 });
     }
 
+    const token = authHeader.split(' ')[1]; // Bearer 뒤에 있는 토큰 추출
+
     // Firebase ID 토큰 검증
-    const decodedToken = await admin.auth().verifyIdToken(AuthToken);
-    const uid = decodedToken.uid;
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    console.log('검증된 사용자:', decodedToken);
 
-    // 쿠키 설정
-    const response = new NextResponse('로그인 성공', { status: 200 });
-    response.cookies.set('AuthToken', AuthToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60 * 24 * 7, // 7일
-      path: '/',
-    });
-
-    return response;
+    return new NextResponse('로그인 성공', { status: 200 });
   } catch (error) {
-    console.error('토큰 검증 실패:', error.message);
+    console.error('Firebase 토큰 검증 실패:');
     return new NextResponse('토큰 검증 실패', { status: 401 });
   }
 }

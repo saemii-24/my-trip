@@ -12,32 +12,41 @@ function useGoogleSignin() {
     const provider = new GoogleAuthProvider();
 
     signInWithPopup(auth, provider)
-      .then(async (result) => {
+      .then(async () => {
         console.log('로그인 되었습니다.');
-        const user = auth.currentUser;
-        const token = await user?.getIdToken(); // Firebase ID 토큰 가져오기
+        try {
+          const user = auth.currentUser;
 
-        // POST 요청 보내기
-        const response = await fetch('/api/signin', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            AuthToken: token, // accessToken을 서버로 전송
-          }),
-        });
+          // 사용자 인증 정보가 없는 경우 예외 처리
+          if (!user) {
+            throw new Error('사용자 인증 정보를 찾을 수 없습니다.');
+          }
 
-        if (response.ok) {
-          console.log('토큰 전송 완료');
-          router.push('/');
-        } else {
-          console.error('로그인 실패');
+          // Firebase ID 토큰 가져오기
+          const token = await user.getIdToken();
+
+          // 서버에 POST 요청 보내기
+          const response = await fetch('/api/signin', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`, // 토큰을 헤더에 포함
+            },
+          });
+
+          if (response.ok) {
+            console.log('토큰 전송 완료');
+            router.push('/'); // 메인 페이지로 이동
+          } else {
+            const errorText = await response.text();
+            throw new Error(`서버 응답 오류: ${errorText}`);
+          }
+        } catch (error) {
+          console.error('로그인 요청 실패:');
         }
       })
       .catch((error) => {
-        console.error(error.message);
-        console.log('로그인 오류 발생');
+        console.error('Firebase 로그인 오류:', error.message);
       });
   }, [router]);
 
