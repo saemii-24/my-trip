@@ -2,8 +2,10 @@
 
 import { useState, useCallback } from 'react';
 import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
-import { auth } from '@remote/firebase';
+import { auth, store } from '@remote/firebase';
 import { useRouter } from 'next/navigation';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { COLLECTIONS } from '@constant/index';
 
 function useGoogleSignin() {
   const router = useRouter();
@@ -13,7 +15,6 @@ function useGoogleSignin() {
 
     signInWithPopup(auth, provider)
       .then(async () => {
-        console.log('로그인 되었습니다.');
         try {
           const user = auth.currentUser;
 
@@ -41,6 +42,14 @@ function useGoogleSignin() {
             const errorText = await response.text();
             throw new Error(`서버 응답 오류: ${errorText}`);
           }
+          console.log('로그인 되었습니다.');
+          const 새로운유저 = {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            photoUrl: user.photoURL,
+          };
+          setDoc(doc(collection(store, COLLECTIONS.USER), user.uid), 새로운유저);
         } catch (error) {
           console.error('로그인 요청 실패:');
         }

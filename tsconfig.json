@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,21 +19,12 @@
       }
     ],
     "paths": {
-      "@components/*": [
-        "./src/app/components/*"
-      ],
-      "@shared/*": [
-        "./src/app/components/shared/*"
-      ],
-      "@styles/*": [
-        "./src/styles/*"
-      ],
-      "@hooks/*": [
-        "./src/hooks/*"
-      ],
-      "@remote/*": [
-        "./src/remote/*"
-      ]
+      "@components/*": ["./src/app/components/*"],
+      "@shared/*": ["./src/app/components/shared/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@remote/*": ["./src/remote/*"],
+      "@constant/*": ["./src/constant/*"]
     }
   },
   "include": [
@@ -47,7 +34,5 @@
     ".next/types/**/*.ts",
     "./dist/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
