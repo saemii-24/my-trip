@@ -3158,6 +3158,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/mdx@npm:^15.1.0":
+  version: 15.1.0
+  resolution: "@next/mdx@npm:15.1.0"
+  dependencies:
+    source-map: "npm:^0.7.0"
+  peerDependencies:
+    "@mdx-js/loader": ">=0.15.0"
+    "@mdx-js/react": ">=0.15.0"
+  peerDependenciesMeta:
+    "@mdx-js/loader":
+      optional: true
+    "@mdx-js/react":
+      optional: true
+  checksum: 10c0/f2ccc7843cd6939df5412c92710a5a0119e5232b73743d28d11f50301810333f51f9a029ea83791d09a66a7af82583d1555b70a9b0a9fad93d8fdf51f36d0feb
+  languageName: node
+  linkType: hard
+
 "@next/swc-darwin-arm64@npm:14.2.20":
   version: 14.2.20
   resolution: "@next/swc-darwin-arm64@npm:14.2.20"
@@ -10780,6 +10797,7 @@ __metadata:
     "@eslint/eslintrc": "npm:^3.2.0"
     "@eslint/js": "npm:^9.16.0"
     "@next/eslint-plugin-next": "npm:^15.0.3"
+    "@next/mdx": "npm:^15.1.0"
     "@storybook/addon-essentials": "npm:8.4.7"
     "@storybook/addon-interactions": "npm:8.4.7"
     "@storybook/addon-onboarding": "npm:8.4.7"
@@ -10810,7 +10828,7 @@ __metadata:
     jest-environment-jsdom: "npm:^29.7.0"
     jsonwebtoken: "npm:^9.0.2"
     msw: "npm:^2.6.8"
-    next: "npm:^14"
+    next: "npm:^14.2.2"
     next-firebase-auth-edge: "npm:^1.8.2"
     postcss: "npm:^8"
     prettier: "npm:^3.4.2"
@@ -10887,7 +10905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:^14":
+"next@npm:^14.2.2":
   version: 14.2.20
   resolution: "next@npm:14.2.20"
   dependencies:
@@ -12865,7 +12883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.7.3":
+"source-map@npm:^0.7.0, source-map@npm:^0.7.3":
   version: 0.7.4
   resolution: "source-map@npm:0.7.4"
   checksum: 10c0/dc0cf3768fe23c345ea8760487f8c97ef6fca8a73c83cd7c9bf2fde8bc2c34adb9c0824d6feb14bc4f9e37fb522e18af621543f1289038a66ac7586da29aa7dc

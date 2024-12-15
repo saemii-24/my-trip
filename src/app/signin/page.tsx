@@ -7,7 +7,7 @@ import { auth } from '@remote/firebase';
 export default function Page() {
   const { signin, signout } = useGoogleSignin();
   const user = auth.currentUser;
-  console.log(user);
+  // console.log(user);
 
   return (
     <div>

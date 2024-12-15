@@ -52,28 +52,17 @@ function useGoogleSignin() {
 
   const signout = useCallback(async () => {
     try {
-      // 서버에 DELETE 요청
-      const response = await fetch('/api/signout', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      // 서버 응답 확인
-      if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error(`서버 로그아웃 실패: ${errorMessage}`);
-      }
-
-      // 클라이언트 로그아웃 처리
+      // 클라이언트에서 Firebase 로그아웃
       await auth.signOut();
       console.log('로그아웃 되었습니다.');
+
+      // 쿠키 직접 삭제
+      document.cookie = 'AuthToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
 
       // 로그아웃 후 리다이렉트 처리
       router.push('/');
     } catch (error) {
-      console.error('로그아웃 실패');
+      console.error('로그아웃 실패:', error);
     }
   }, [router]);
 
