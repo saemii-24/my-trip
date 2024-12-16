@@ -12,5 +12,6 @@ declare namespace NodeJS {
     NEXT_PUBLIC_FIREBASE_PROJECT_ID: string;
     NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL: string;
     NEXT_PUBLIC_FIREBASE_PRIVATE_KEY: string;
+    NEXT_PUBLIC_GOOGLE_MAP_API: string;
   }
 }
