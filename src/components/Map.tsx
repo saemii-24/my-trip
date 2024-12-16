@@ -1,24 +1,51 @@
-import React, { useState, useEffect } from 'react';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import React, { useState, useEffect, useCallback } from 'react';
+import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
-// 초기 지도는 서울로
-const center = {
-  lat: 37.5665, // 위도
-  lng: 126.978, // 경도
-};
+export interface Props {
+  location?: {
+    lat: number;
+    lng: number;
+  };
+  zoom: number;
+}
 
 const containerStyle = {
   width: '100%',
-  height: '500px',
+  height: '100vh',
 };
 
-const App = () => {
-  const [currentLocation, setCurrentLocation] = useState(center);
+// 서울  위치
+const defaultLocation = {
+  lat: 37.5665,
+  lng: 126.978,
+};
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API || '', // .env 파일에 저장한 API 키
+const GoogleMapComponent: React.FC<Props> = ({
+  location = defaultLocation,
+  zoom = 14,
+}: Props) => {
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API || '',
+    language: 'ko', // 언어
+    region: 'KR', // 지역
   });
 
+  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [currentLocation, setCurrentLocation] = useState(location); // 사용자 위치 상태
+
+  const onLoad = useCallback(
+    function callback(map: google.maps.Map) {
+      map.setZoom(zoom); //
+      setMap(map);
+    },
+    [zoom],
+  );
+
+  const onUnmount = useCallback(() => {
+    setMap(null);
+  }, []);
+
+  // 사용자 위치 가져오기
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -29,19 +56,25 @@ const App = () => {
           });
         },
         (error) => {
-          console.error('지도 불러오기 실패:', error);
+          console.error('사용자 위치를 가져올 수 없습니다:', error);
         },
       );
     }
   }, []);
 
-  if (!isLoaded) return <div>로딩중...</div>;
-
-  return (
-    <GoogleMap mapContainerStyle={containerStyle} center={currentLocation} zoom={15}>
-      <Marker position={currentLocation} />
+  return isLoaded ? (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={currentLocation} // 지도 중심은 사용자 위치
+      onLoad={onLoad}
+      onUnmount={onUnmount}
+      zoom={zoom} // zoom 크기 설정정
+    >
+      <Marker position={currentLocation} /> {/* 사용자 위치 마커 표시 */}
     </GoogleMap>
+  ) : (
+    <></>
   );
 };
 
-export default App;
+export default React.memo(GoogleMapComponent);
