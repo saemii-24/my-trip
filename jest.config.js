@@ -13,6 +13,7 @@ const customJestConfig = {
   // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testEnvironment: 'jest-environment-jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   transform: {
     '^.+\\.(t|j)sx?$': ['@swc/jest'],
   },
@@ -38,7 +39,12 @@ const customJestConfig = {
     '^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$': `<rootDir>/__mocks__/fileMock.js`,
 
     // Handle module aliases
-    '^@/pages/(.*)$': '<rootDir>/pages/$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@shared/(.*)$': '<rootDir>/src/app/components/shared/$1',
+    '^@styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@remote/(.*)$': '<rootDir>/src/remote/$1',
+    '^@constant/(.*)$': '<rootDir>/src/constant/$1',
   },
   globals: {
     'ts-jest': {
