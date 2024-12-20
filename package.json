@@ -75,7 +75,6 @@
     "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4"
   },
-  "packageManager": "yarn@4.5.3",
   "eslintConfig": {
     "extends": [
       "plugin:storybook/recommended"
