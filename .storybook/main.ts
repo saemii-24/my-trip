@@ -1,26 +1,29 @@
-import type { StorybookConfig } from '@storybook/nextjs';
+import type { StorybookConfig } from "@storybook/nextjs";
 
-import { join, dirname } from 'path';
-
-/**
- * This function is used to resolve the absolute path of a package.
- * It is needed in projects that use Yarn PnP or are set up within a monorepo.
- */
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')));
-}
 const config: StorybookConfig = {
-  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  staticDirs: ["../public/"], // Storybook에서 public 디렉토리를 참조하도록 설정
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  features: {
+    viewportStoryGlobals: true,
+  },
   addons: [
-    getAbsolutePath('@storybook/addon-onboarding'),
-    getAbsolutePath('@storybook/addon-essentials'),
-    getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-interactions'),
+    "@storybook/addon-onboarding",
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@chromatic-com/storybook",
+    "@storybook/addon-interactions",
+    "@storybook/addon-a11y",
   ],
   framework: {
-    name: getAbsolutePath('@storybook/nextjs'),
-    options: {},
+    name: "@storybook/nextjs",
+    options: {
+      cssLoaderOptions: {
+        importLoaders: 1,
+      },
+      postcssLoaderOptions: {
+        implementation: require("postcss"),
+      },
+    },
   },
-  staticDirs: ['..\\public'],
 };
 export default config;

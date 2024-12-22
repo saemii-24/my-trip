@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "es2017",
+    "types": ["@testing-library/jest-dom"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -27,12 +28,8 @@
       "@constant/*": ["./src/constant/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "./dist/types/**/*.ts"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"],
+
+  "jsx": "react-jsx" 
 }
