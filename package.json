@@ -42,6 +42,7 @@
     "react-router-dom": "^7.0.2",
     "split-type": "^0.3.4",
     "storybook": "^8.4.7",
+    "swiper": "^11.1.15",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
