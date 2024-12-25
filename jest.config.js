@@ -22,10 +22,7 @@ const customJestConfig = {
     '<rootDir>/.next/',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
-  testMatch: [
-    '<rootDir>/**/*.test.(js|jsx|ts|tsx)',
-    '<rootDir>/**/*.spec.(js|jsx|ts|tsx)',
-  ],
+  testMatch: ['**/src/test/**/*.tsx', '**/src/spec/**/*.tsx'],
   moduleNameMapper: {
     // Handle CSS imports (without CSS modules)
     '^.+\\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
