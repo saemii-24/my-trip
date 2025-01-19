@@ -9,3 +9,7 @@ body {
 .font {
   font-family: var(--noto);
 }
+
+.center-flex {
+  @apply flex items-center justify-center;
+}

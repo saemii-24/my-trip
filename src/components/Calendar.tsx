@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { ko } from 'date-fns/locale';
@@ -10,7 +11,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import cn from 'classnames';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import 'DatePicker.css';
+import './Calendar.css';
 
 // 로케일 등록
 registerLocale('ko', ko);
