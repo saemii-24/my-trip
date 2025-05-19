@@ -1,4 +1,3 @@
-// env.d.ts
 declare namespace NodeJS {
   interface ProcessEnv {
     NEXT_PUBLIC_API_KEY: string;
@@ -13,5 +12,6 @@ declare namespace NodeJS {
     NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL: string;
     NEXT_PUBLIC_FIREBASE_PRIVATE_KEY: string;
     NEXT_PUBLIC_GOOGLE_MAP_API: string;
+    NEXT_PUBLIC_GOOGLE_GEMINI_API: string;
   }
 }

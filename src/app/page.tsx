@@ -4,7 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import useGoogleSignin from '@hooks/useGoogleSignin';
 import { auth } from '@remote/firebase';
 import { User as FirebaseUser } from 'firebase/auth';
-import Map from '../components/Map';
+import GoogleMap from '@components/Map';
 
 export default function Page() {
   const { signin, signout } = useGoogleSignin();
@@ -32,7 +32,7 @@ export default function Page() {
       ) : (
         <button onClick={signin}>로그인</button>
       )}
-      <Map />
+      <GoogleMap />
     </div>
   );
 }

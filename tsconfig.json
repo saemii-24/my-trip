@@ -28,8 +28,8 @@
       "@constant/*": ["./src/constant/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "env.d.ts"],
   "exclude": ["node_modules"],
 
-  "jsx": "react-jsx" 
+  "jsx": "react-jsx"
 }
