@@ -16,22 +16,31 @@ export default function Page() {
       setUser(currentUser);
     });
 
-    console.log(user);
-
     return () => unsubscribe();
   }, []);
 
   return (
-    <div>
-      메인!!
+    <div className='p-4'>
+      <h1 className='text-2xl font-bold mb-4'>메인 페이지</h1>
       {user ? (
-        <div>
-          <p>{user.displayName}님 환영합니다!</p>
-          <button onClick={signout}>로그아웃</button>
+        <div className='mb-4'>
+          <p className='mb-2'>{user.displayName}님 환영합니다!</p>
+          <button
+            onClick={signout}
+            className='bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600'
+          >
+            로그아웃
+          </button>
         </div>
       ) : (
-        <button onClick={signin}>로그인</button>
+        <button
+          onClick={signin}
+          className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4'
+        >
+          로그인
+        </button>
       )}
+
       <GoogleMap />
     </div>
   );
