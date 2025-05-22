@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "types": ["@testing-library/jest-dom"],
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": [
+      "@testing-library/jest-dom"
+    ],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,16 +26,35 @@
       }
     ],
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@shared/*": ["./src/app/components/shared/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@remote/*": ["./src/remote/*"],
-      "@constant/*": ["./src/constant/*"]
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@shared/*": [
+        "./src/app/components/shared/*"
+      ],
+      "@styles/*": [
+        "./src/styles/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@remote/*": [
+        "./src/remote/*"
+      ],
+      "@constant/*": [
+        "./src/constant/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "env.d.ts"],
-  "exclude": ["node_modules"],
-
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "env.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
   "jsx": "react-jsx"
 }
