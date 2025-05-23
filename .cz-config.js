@@ -1,6 +1,7 @@
 module.exports = {
   types: [
-    { value: '✨ feat', name: '✨ feat:     새로운 기능' },
+    { value: '🎉 init', name: '🎉 init:      첫 번째 커밋' },
+    { value: '🚀 feat', name: '🚀 feat:     새로운 기능' },
     { value: '🐛 fix', name: '🐛 fix:      버그 수정' },
     { value: '♻️ refactor', name: '♻️ refactor: 리팩토링' },
     { value: '📝 docs', name: '📝 docs:     문서 수정' },
@@ -12,11 +13,11 @@ module.exports = {
   messages: {
     type: '어떤 종류의 변경인가요?:',
     scope: '변경 범위(옵션):',
-    subject: '짧은 설명:\n',
-    body: '자세한 설명 (선택):\n',
-    footer: '이슈 번호(옵션):',
+    subject: '제목:\n',
+    body: '본문 (Optional):\n',
+    footer: '이슈 번호(Optional):',
     confirmCommit: '이 커밋 메시지로 커밋할까요?'
   },
-  skipQuestions: ['breaking'],  
+  skipQuestions: ['breaking', 'scope'], 
   footerPrefix: '',
 };
