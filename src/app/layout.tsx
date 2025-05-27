@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Noto } from '../font';
 import Provider from './_provider';
+import { pretendard, suit } from '../font';
 
 export const metadata: Metadata = {
   title: 'my-trip',
@@ -10,9 +10,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang='ko' className={Noto.variable + ' font'}>
+    <html lang='ko' className={`${pretendard.variable} ${suit.variable} `}>
       <body>
         <Provider>{children}</Provider>
+        <div className='font-pretendard'>Korea</div>
+        <div className='font-suit'>Korea</div>
       </body>
     </html>
   );
