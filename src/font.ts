@@ -1,8 +1,11 @@
-import { Noto_Sans_KR } from 'next/font/google';
+import localFont from 'next/font/local';
 
-export const Noto = Noto_Sans_KR({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--noto',
-  fallback: ['sans-serif'],
+export const suit = localFont({
+  variable: '--font-suit',
+  src: '../node_modules/@sun-typeface/suit/fonts/variable/woff2/SUIT-Variable.woff2',
+});
+
+export const pretendard = localFont({
+  variable: '--font-pretendard',
+  src: '../node_modules/pretendard/dist/public/variable/PretendardVariable.ttf',
 });

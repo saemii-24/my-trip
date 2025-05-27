@@ -2,14 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: var(--noto);
+.font-pretendard {
+  font-family: var(--font-pretendard), sans-serif;
 }
-
-.font {
-  font-family: var(--noto);
-}
-
-.center-flex {
-  @apply flex items-center justify-center;
+.font-suit {
+  font-family: var(--font-suit), sans-serif;
 }
