@@ -7,5 +7,5 @@ export const suit = localFont({
 
 export const pretendard = localFont({
   variable: '--font-pretendard',
-  src: '../node_modules/pretendard/dist/public/variable/PretendardVariable.ttf',
+  src: '../node_modules/pretendard/dist/web/variable/woff2/PretendardVariable.woff2',
 });
