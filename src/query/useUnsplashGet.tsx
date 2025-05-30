@@ -8,7 +8,6 @@ const useUnsplashGet = (country: string) => {
       if (!process.env.NEXT_PUBLIC_UNSPLASH_API) {
         throw new Error('Missing Unsplash API Key');
       }
-      console.log(country);
 
       const unsplashBaseUrl = 'https://api.unsplash.com/photos/random';
       const params = new URLSearchParams({
@@ -17,7 +16,6 @@ const useUnsplashGet = (country: string) => {
         count: '1',
         orientation: 'landscape',
       });
-      console.log(`${unsplashBaseUrl}?${params}`);
 
       const response = await fetch(`${unsplashBaseUrl}?${params}`);
       const data = await response.json();
@@ -25,6 +23,8 @@ const useUnsplashGet = (country: string) => {
       if (!response.ok) {
         throw new Error(data?.errors?.[0] || 'Failed to fetch Unsplash image');
       }
+
+      console.log(data);
 
       return data[0]; // 배열 중 첫 번째 이미지
     },
