@@ -15,4 +15,4 @@ const keywords = [
   'Vancouver',
 ];
 
-export const travelCountry = keywords[Math.floor(Math.random() * keywords.length)];
+export const country = keywords[Math.floor(Math.random() * keywords.length)];

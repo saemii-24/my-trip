@@ -1,26 +1,30 @@
+'use client';
 import React from 'react';
 import Image from 'next/image';
-import { travelCountry } from '@utils/randomImageKeyword';
+import useUnsplashGet from '../../query/useUnsplashGet';
+import { country } from '@utils/randomImageKeyword';
+import BounceLoading from './BounceLoading';
 
 const Hero = () => {
-  const { images, isLoading } = useUnsplashGet({ keyword: travelCountry });
+  const { unsplashData, unsplashIsLoading } = useUnsplashGet(country);
 
-  const image = images.length ? images[Math.floor(Math.random() * images.length)] : null;
+  console.log(unsplashData);
 
-  if (isLoading || !image) return <div>로딩 중...</div>;
+  if (unsplashIsLoading) {
+    return <BounceLoading />;
+  }
 
   return (
     <div className='w-screen h-[calc(100vh-120px)] relative'>
-      <Image
-        src={image.urls.regular}
-        alt={image.alt_description || '여행 이미지'}
-        layout='fill'
-        objectFit='cover'
-        priority
-      />
-      <h1 className='absolute bottom-6 left-6 text-white text-4xl font-bold drop-shadow-xl'>
-        {image.alt_description || travelCountry}
-      </h1>
+      {unsplashData?.urls && (
+        <Image
+          src={unsplashData?.urls.regular}
+          alt={'여행 이미지'}
+          layout='fill'
+          objectFit='cover'
+          priority
+        />
+      )}
     </div>
   );
 };
