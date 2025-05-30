@@ -13,5 +13,6 @@ declare namespace NodeJS {
     NEXT_PUBLIC_FIREBASE_PRIVATE_KEY: string;
     NEXT_PUBLIC_GOOGLE_MAP_API: string;
     NEXT_PUBLIC_GOOGLE_GEMINI_API: string;
+    NEXT_PUBLIC_UNSPLASH_API: string;
   }
 }
