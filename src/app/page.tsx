@@ -4,9 +4,11 @@ import Hero from '@components/public/Hero';
 
 export default function Page() {
   return (
-    <Container>
-      <Header />
+    <>
+      <Container>
+        <Header />
+      </Container>
       <Hero />
-    </Container>
+    </>
   );
 }

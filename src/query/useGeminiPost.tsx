@@ -1,40 +1,43 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { GoogleGenAI } from '@google/genai';
 
 interface GeminiResponse {
   result: string;
 }
 
-interface GeminiRequest {
-  prompt: string;
-}
+const ai = new GoogleGenAI({
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API!,
+});
 
-export function useGeminiMutation() {
-  const geminiMutation = useMutation<GeminiResponse, Error, GeminiRequest>({
-    mutationFn: async ({ prompt }) => {
-      const response = await fetch('/api/gemini', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt }),
+export function useGeminiGet(prompt: string) {
+  const geminiGet = useQuery<GeminiResponse, Error>({
+    queryKey: ['gemini', prompt],
+    queryFn: async () => {
+      if (!prompt) throw new Error('No prompt');
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.0-flash',
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
       });
+      const result = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to fetch Gemini response');
+      // JSON parsing 안전하게 시도
+      try {
+        return JSON.parse(result);
+      } catch {
+        return { title: '제목 없음', content: result };
       }
-
-      return response.json();
     },
+    enabled: !!prompt,
+    retry: 0,
   });
 
   return {
-    mutate: geminiMutation.mutate,
-    data: geminiMutation.data,
-    isPending: geminiMutation.isPending,
-    isError: geminiMutation.isError,
-    error: geminiMutation.error,
+    geminiData: geminiGet.data,
+    geminiGetIsLoading: geminiGet.isLoading,
+    geminiGetIsSuccess: geminiGet.isSuccess,
+    geminiGetIsError: geminiGet.isError,
+    geminiGetError: geminiGet.error,
   };
 }
