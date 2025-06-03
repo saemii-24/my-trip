@@ -1,12 +1,7 @@
 import React from 'react';
+import IconProps from '@type/icon';
 
-interface MenuHamburger1Props {
-  className?: string;
-}
-
-export default function MenuHamburger1({
-  className = 'text-gray-800',
-}: MenuHamburger1Props) {
+export default function MenuHamburger1({ className = 'text-gray-800' }: IconProps) {
   return (
     <svg
       width='80'

@@ -26,7 +26,8 @@
       "@utils/*": ["./src/utils/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@remote/*": ["./src/remote/*"],
-      "@constant/*": ["./src/constant/*"]
+      "@constant/*": ["./src/constant/*"],
+      "@type/*": ["./src/type/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "env.d.ts"],
