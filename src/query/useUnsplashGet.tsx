@@ -3,7 +3,7 @@ import { UnsplashResponseType } from '../types/unsplashResponseType';
 
 const useUnsplashGet = (country: string) => {
   const unsplashGet = useQuery<UnsplashResponseType, Error>({
-    queryKey: ['unsplash', country],
+    queryKey: ['unsplash'],
     queryFn: async () => {
       if (!process.env.NEXT_PUBLIC_UNSPLASH_API) {
         throw new Error('Missing Unsplash API Key');
