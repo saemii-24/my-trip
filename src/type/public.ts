@@ -1,6 +1,10 @@
-import { HTMLAttributes, ReactNode } from "react"
+import { HTMLAttributes, ReactNode } from 'react';
 
-export interface ChildrenProps{
-    children:ReactNode;
-    className?:string;
+export interface BasicProps {
+  className?: string;
+}
+
+export interface ChildrenProps {
+  children: ReactNode;
+  className?: string;
 }
