@@ -4,7 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { GoogleGenAI } from '@google/genai';
 
 interface GeminiResponse {
-  result: string;
+  title: string;
+  content: string;
 }
 
 const ai = new GoogleGenAI({
@@ -16,20 +17,24 @@ export function useGeminiGet(prompt: string) {
     queryKey: ['gemini', prompt],
     queryFn: async () => {
       if (!prompt) throw new Error('No prompt');
+
       const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash',
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
       });
-      const result = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-      // JSON parsing 안전하게 시도
-      try {
-        return JSON.parse(result);
-      } catch {
-        return { title: '제목 없음', content: result };
-      }
+      const rawText = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+      //title과 content로 파싱한다.
+      const titleMatch = rawText.match(/Title:\s*(.+)/);
+      const contentMatch = rawText.match(/Content:\s*([\s\S]+)/);
+
+      return {
+        title: titleMatch?.[1]?.trim() || '',
+        content: contentMatch?.[1]?.trim() || '',
+      };
     },
-    enabled: !!prompt,
+    enabled: !!prompt && !!process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API,
     retry: 0,
   });
 

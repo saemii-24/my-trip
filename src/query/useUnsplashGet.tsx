@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { UnsplashResponseType } from '../types/unsplashResponseType';
+import { UnsplashResponseType } from '../type/unsplashResponseType';
 
 const useUnsplashGet = (country: string) => {
   const unsplashGet = useQuery<UnsplashResponseType, Error>({
