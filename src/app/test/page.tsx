@@ -1,27 +1,15 @@
 'use client';
-import React, { useEffect } from 'react';
-import { GoogleGenAI } from '@google/genai';
 
-const Test = () => {
-  useEffect(() => {
-    const ai = new GoogleGenAI({ apiKey: '' });
+import useCountryInfoGet from '@query/useCountryInfoGet';
 
-    async function main() {
-      try {
-        const response = await ai.models.generateContent({
-          model: 'gemini-2.0-flash',
-          contents: 'Explain how AI works in a few words',
-        });
-        console.log(response.text);
-      } catch (error) {
-        console.error('Error generating content:', error);
-      }
-    }
+export default function Test() {
+  const { countryData, countryIsLoading, countryError } = useCountryInfoGet('가나', 'GH');
+  if (countryIsLoading) return <p>Loading...</p>;
+  if (countryError) return <p>Error: {countryError.message}</p>;
 
-    main();
-  }, []);
-
-  return <div className='center-flex'></div>;
-};
-
-export default Test;
+  return (
+    <div>
+      <h2>{countryData?.country_nm}</h2>
+    </div>
+  );
+}
