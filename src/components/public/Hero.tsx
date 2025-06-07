@@ -7,6 +7,7 @@ import BounceLoading from './BounceLoading';
 import { useGeminiGet } from '../../query/useGeminiPost';
 
 const Hero = () => {
+  console.log(process.env.NEXT_PUBLIC_BASE_URL);
   const { unsplashData, unsplashIsLoading } = useUnsplashGet(country);
 
   const [prompt, setPrompt] = useState('');
