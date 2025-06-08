@@ -20,6 +20,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'opendata.mofa.go.kr',
+        port: '8444',
+        pathname: '/**',
+      },
     ],
   },
 };
