@@ -9,3 +9,12 @@ export type CountryInfoGetType = {
   imgUrl: string;
   wrtDt: string;
 };
+
+export type CountryFlagGetType = {
+  content_ty: string | null;
+  country_eng_nm: string;
+  country_iso_alp2: string;
+  country_nm: string;
+  download_url: string;
+  origin_file_nm: string;
+};

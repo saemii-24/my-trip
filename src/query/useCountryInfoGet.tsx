@@ -55,7 +55,6 @@ const useCountryInfoGet = (country: string) => {
         }
       }
 
-      console.log(dataParsing);
       return dataParsing;
     },
     retry: 0,
@@ -63,12 +62,12 @@ const useCountryInfoGet = (country: string) => {
   });
 
   return {
-    countryData: countryInfoGet.data,
-    countryIsLoading: countryInfoGet.isLoading,
-    countryIsSuccess: countryInfoGet.isSuccess,
-    countryIsError: countryInfoGet.isError,
-    countryError: countryInfoGet.error,
-    countryRefetch: countryInfoGet.refetch,
+    countryInfoData: countryInfoGet.data,
+    countryInfoIsLoading: countryInfoGet.isLoading,
+    countryInfoIsSuccess: countryInfoGet.isSuccess,
+    countryInfoIsError: countryInfoGet.isError,
+    countryInfoError: countryInfoGet.error,
+    countryInfoRefetch: countryInfoGet.refetch,
   };
 };
 
