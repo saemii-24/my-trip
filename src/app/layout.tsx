@@ -13,8 +13,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang='ko' className={`${pretendard.variable} ${suit.variable} `}>
       <body>
         <Provider>{children}</Provider>
-        <div className='font-pretendard'>Korea</div>
-        <div className='font-suit'>Korea</div>
       </body>
     </html>
   );
