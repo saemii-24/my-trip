@@ -3,24 +3,21 @@
 import Image from 'next/image';
 import useCountryFlagGet from '@query/useCountryFlagGet';
 import useCountryInfoGet from '@query/useCountryInfoGet';
+import { useGeminiGet } from '@query/useGeminiPost';
+import { itineraryPromptFunc } from '../../prompt/itinerary';
+import Container from '@components/public/Container';
+import Header from '@components/public/Header';
 
 export default function Test() {
   const { countryInfoData } = useCountryInfoGet('프랑스');
   const { countryFlagData } = useCountryFlagGet('프랑스');
-
-  console.log(countryFlagData);
+  const { geminiData } = useGeminiGet(itineraryPromptFunc('대한민국'));
 
   return (
-    <div>
-      <div>{countryInfoData?.countryName}</div>
-      {countryFlagData?.download_url && (
-        <Image
-          width={30}
-          height={30}
-          src={countryFlagData?.download_url}
-          alt={countryFlagData?.origin_file_nm}
-        />
-      )}
-    </div>
+    <>
+      <Container>
+        <Header />
+      </Container>
+    </>
   );
 }

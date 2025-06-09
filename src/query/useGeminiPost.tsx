@@ -2,6 +2,7 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { GoogleGenAI } from '@google/genai';
+import { itineraryPromptParsing } from '../prompt/itinerary';
 
 interface GeminiResponse {
   title: string;
@@ -13,6 +14,7 @@ const ai = new GoogleGenAI({
 });
 
 export function useGeminiGet(prompt: string) {
+  console.log(process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API);
   const geminiGet = useQuery<GeminiResponse, Error>({
     queryKey: ['gemini', prompt],
     queryFn: async () => {
@@ -25,14 +27,17 @@ export function useGeminiGet(prompt: string) {
 
       const rawText = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
-      //title과 content로 파싱한다.
-      const titleMatch = rawText.match(/Title:\s*(.+)/);
-      const contentMatch = rawText.match(/Content:\s*([\s\S]+)/);
+      console.log(itineraryPromptParsing(rawText));
 
-      return {
-        title: titleMatch?.[1]?.trim() || '',
-        content: contentMatch?.[1]?.trim() || '',
-      };
+      return itineraryPromptParsing(rawText);
+      // //title과 content로 파싱한다.
+      // const titleMatch = rawText.match(/Title:\s*(.+)/);
+      // const contentMatch = rawText.match(/Content:\s*([\s\S]+)/);
+
+      // return {
+      //   title: titleMatch?.[1]?.trim() || '',
+      //   content: contentMatch?.[1]?.trim() || '',
+      // };
     },
     enabled: !!prompt && !!process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API,
     retry: 0,
