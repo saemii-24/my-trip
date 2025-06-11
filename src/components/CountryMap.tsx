@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { APIProvider, Map, AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
 
 interface LatLng {
@@ -6,23 +6,21 @@ interface LatLng {
   lng: number;
 }
 
-const CountryMap = ({ country }: { country: string }) => {
-  const [position, setPosition] = useState<LatLng | null>(null);
+const CountryMap = ({ lat, lng }: LatLng) => {
+  const center = { lat, lng };
+  console.log(lat, lng);
 
-  // Geocoding API로 국가명 → 좌표 변환
-  useEffect(() => {
-    const fetchCoordinates = async () => {
-      const response = await fetch(`https://restcountries.com/v3.1/name/South%20Korea`);
-      const data = await response.json();
-      if (data.results?.[0]) {
-        const loc = data.results[0].geometry.location;
-        setPosition({ lat: loc.lat, lng: loc.lng });
-      }
-    };
-    fetchCoordinates();
-  }, [country]);
-
-  return <div></div>;
+  return (
+    <div style={{ height: '400px', width: '100%' }}>
+      <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API}>
+        <Map center={center} zoom={5} style={{ width: '100%', height: '100%' }}>
+          <AdvancedMarker position={{ lat: 37, lng: -95 }}>
+            <Pin />
+          </AdvancedMarker>
+        </Map>
+      </APIProvider>
+    </div>
+  );
 };
 
 export default CountryMap;
