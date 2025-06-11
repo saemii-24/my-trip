@@ -12,6 +12,7 @@ const useCountryLocationGet = (country: string) => {
       }
 
       const data = await response.json();
+      console.log(data);
 
       return data;
     },
@@ -20,12 +21,12 @@ const useCountryLocationGet = (country: string) => {
   });
 
   return {
-    countryInfoData: countryLocationGet.data,
-    countryInfoIsLoading: countryLocationGet.isLoading,
-    countryInfoIsSuccess: countryLocationGet.isSuccess,
-    countryInfoIsError: countryLocationGet.isError,
-    countryInfoError: countryLocationGet.error,
-    countryInfoRefetch: countryLocationGet.refetch,
+    countryLocationData: countryLocationGet?.data,
+    countryLocationIsLoading: countryLocationGet.isLoading,
+    countryLocationIsSuccess: countryLocationGet.isSuccess,
+    countryLocationIsError: countryLocationGet.isError,
+    countryLocationError: countryLocationGet.error,
+    countryLocationRefetch: countryLocationGet.refetch,
   };
 };
 

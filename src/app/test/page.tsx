@@ -6,18 +6,29 @@ import { itineraryPromptFunc } from '../../prompt/itinerary';
 import Container from '@components/public/Container';
 import Header from '@components/public/Header';
 import CountryMap from '@components/CountryMap';
+import useCountryLocationGet from '@query/useCountryLocationGet';
 
 export default function Test() {
   // const { countryInfoData } = useCountryInfoGet('프랑스');
   // const { countryFlagData } = useCountryFlagGet('프랑스');
   // const { geminiData } = useGeminiGet(itineraryPromptFunc('대한민국'));
 
+  const { countryLocationData } = useCountryLocationGet('South Korea');
+
   return (
     <>
-      <Container>
-        <Header />
-      </Container>
-      <CountryMap country={'대한민국'} />
+      {countryLocationData && (
+        <>
+          {' '}
+          <Container>
+            <Header />
+          </Container>
+          <CountryMap
+            lat={countryLocationData[0].latlng[0]}
+            lng={countryLocationData[0].latlng[1]}
+          />
+        </>
+      )}
     </>
   );
 }
