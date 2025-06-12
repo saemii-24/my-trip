@@ -5,7 +5,7 @@ import { useGeminiGet } from '@query/useGeminiPost';
 import { itineraryPromptFunc } from '../../prompt/itinerary';
 import Container from '@components/public/Container';
 import Header from '@components/public/Header';
-import CountryMap from '@components/CountryMap';
+import CountryLocationMap from '@components/CountryLocationMap';
 import useCountryLocationGet from '@query/useCountryLocationGet';
 
 export default function Test() {
@@ -23,7 +23,7 @@ export default function Test() {
           <Container>
             <Header />
           </Container>
-          <CountryMap
+          <CountryLocationMap
             lat={countryLocationData[0].latlng[0]}
             lng={countryLocationData[0].latlng[1]}
           />
