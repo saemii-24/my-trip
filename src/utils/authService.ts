@@ -11,7 +11,7 @@ import firebaseApp from './firebase';
 const auth = getAuth(firebaseApp);
 
 // 회원가입
-export const register = (email: string, password: string) =>
+export const registerWithEmail = (email: string, password: string) =>
   createUserWithEmailAndPassword(auth, email, password);
 
 // 로그인
