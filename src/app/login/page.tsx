@@ -14,12 +14,21 @@
 
 'use client';
 
-import { signInWithGoogle } from '@utils/authService';
+import { signInWithGithub, signInWithGoogle } from '@utils/authService';
 
 export default function LoginPage() {
   const handleGoogleLogin = async () => {
     try {
       const { user, token } = await signInWithGoogle();
+      console.log('Logged in as:', user.displayName);
+      // TODO: 페이지로 redirect
+    } catch (err: any) {
+      alert('Google login failed: ' + err.message);
+    }
+  };
+  const handleGithubLogin = async () => {
+    try {
+      const { user, token } = await signInWithGithub();
       console.log('Logged in as:', user.displayName);
       // TODO: 페이지로 redirect
     } catch (err: any) {
@@ -35,6 +44,12 @@ export default function LoginPage() {
         className='w-full bg-red-500 text-white p-2 rounded hover:bg-red-600'
       >
         Google 계정으로 로그인
+      </button>
+      <button
+        onClick={handleGithubLogin}
+        className='w-full bg-green-500 text-white p-2 rounded hover:bg-green-600'
+      >
+        Github 계정으로 로그인
       </button>
     </div>
   );

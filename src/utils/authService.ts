@@ -7,6 +7,7 @@ import {
   User,
   GoogleAuthProvider,
   signInWithPopup,
+  GithubAuthProvider,
 } from 'firebase/auth';
 import firebaseApp from './firebase';
 
@@ -43,9 +44,37 @@ export const signInWithGoogle = async () => {
     const token = credential?.accessToken;
     const user = result.user;
 
+    console.log('Google login success:', user);
     return { user, token };
   } catch (error: any) {
     console.error('Google Sign-in error', error);
+    throw error;
+  }
+};
+
+//깃허브 로그인
+
+const githubProvider = new GithubAuthProvider();
+
+// githubProvider.addScope('repo');
+
+githubProvider.setCustomParameters({
+  allow_signup: 'false',
+});
+
+export const signInWithGithub = async () => {
+  try {
+    const result = await signInWithPopup(auth, githubProvider);
+
+    const credential = GithubAuthProvider.credentialFromResult(result);
+    const token = credential?.accessToken;
+
+    const user = result.user;
+
+    console.log('GitHub login success:', user);
+    return { user, token };
+  } catch (error: any) {
+    console.error('GitHub login failed:', error);
     throw error;
   }
 };
