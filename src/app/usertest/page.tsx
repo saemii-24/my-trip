@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { loginWithEmail } from '@utils/authService';
+import { signInWithEmail } from '@utils/authService';
 
 type LoginForm = {
   email: string;
@@ -21,7 +21,7 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginForm) => {
     setFirebaseError('');
     try {
-      const result = await loginWithEmail(data.email, data.password);
+      const result = await signInWithEmail(data.email, data.password);
       console.log('로그인 성공:', result.user);
       //로그인 성공 시 이어질 내용 작성성
     } catch (error: any) {
