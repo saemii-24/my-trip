@@ -14,9 +14,13 @@
 
 'use client';
 
+import { useFirebaseAuth } from '@hooks/useFirebaseAuth';
 import { signInWithGithub, signInWithGoogle } from '@utils/authService';
 
 export default function LoginPage() {
+  const { user, loading, isLoggedIn } = useFirebaseAuth();
+  console.log(user);
+
   const handleGoogleLogin = async () => {
     try {
       const { user, token } = await signInWithGoogle();
