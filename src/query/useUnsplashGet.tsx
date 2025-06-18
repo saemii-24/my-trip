@@ -25,8 +25,6 @@ const useUnsplashGet = (country: string) => {
         throw new Error(data?.errors?.[0] || 'Failed to fetch Unsplash image');
       }
 
-      console.log(data);
-
       return data[0]; // 배열 중 첫 번째 이미지
     },
     retry: 0,
