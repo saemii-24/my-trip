@@ -12,6 +12,7 @@ module.exports = {
     { value: '🧹 chore', name: '🧹 chore:       기타 변경 (패키지 정리, 주석 등)' },
     { value: '⚙️ ci', name: '⚙️ ci:          CI/CD 관련 설정 변경' },
     { value: '🎉 init', name: '🎉 init:        초기 커밋' },
+    { value: '🔀 merge', name: '🔀 merge:       브랜치 병합' },
   ],
   messages: {
     type: '어떤 종류의 변경인가요?:',
