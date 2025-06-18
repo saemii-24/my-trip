@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import useUnsplashGet from '../../query/useUnsplashGet';
-import { country } from '@utils/randomImageKeyword';
+import { countryObj } from '@utils/randomImageKeyword';
 import BounceLoading from './BounceLoading';
 import { useGeminiGet } from '../../query/useGeminiPost';
 import heroPromptFunc from '../../prompt/hero';
@@ -10,6 +10,7 @@ import HeroInfo from './HeroInfo';
 
 const Hero = () => {
   //Unsplash Image
+  const { country, city } = countryObj;
   const { unsplashData, unsplashIsLoading } = useUnsplashGet(country);
 
   //Gemini Prompt

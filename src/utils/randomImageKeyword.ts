@@ -14,4 +14,4 @@ const keywords = [
   { country: 'Canada', city: 'Vancouver' },
 ];
 
-export const selectedLocation = keywords[Math.floor(Math.random() * keywords.length)];
+export const countryObj = keywords[Math.floor(Math.random() * keywords.length)];
