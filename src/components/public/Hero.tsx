@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import useUnsplashGet from '../../query/useUnsplashGet';
-import { countryObj } from '@utils/randomImageKeyword';
+import { selectedLocation } from '@utils/randomImageKeyword';
 import BounceLoading from './BounceLoading';
 import { useGeminiGet } from '../../query/useGeminiPost';
 import heroPromptFunc from '../../prompt/hero';
 import HeroInfo from './HeroInfo';
 
 const Hero = () => {
+  const { country } = selectedLocation;
   //Unsplash Image
   const { country, city } = countryObj;
   const { unsplashData, unsplashIsLoading } = useUnsplashGet(country);
