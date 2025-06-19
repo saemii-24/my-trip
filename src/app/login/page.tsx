@@ -1,5 +1,6 @@
 'use client';
 
+
 import Github from '@components/icon/Github';
 import Google from '@components/icon/Google';
 import BounceLoading from '@components/public/BounceLoading';
@@ -9,6 +10,7 @@ import { selectedLocation } from '@utils/randomImageKeyword';
 import Image from 'next/image';
 
 export default function LoginPage() {
+
   const { country } = selectedLocation;
   console.log(country);
 

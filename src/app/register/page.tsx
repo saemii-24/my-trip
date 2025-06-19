@@ -30,7 +30,7 @@ export default function RegisterPage() {
 
     try {
       const result = await registerWithEmail(data.email, data.password);
-      console.log('회원가입 성공:', result.user);
+      console.log('회원가입 성공:', result);
       // TODO: 사용자 이동
     } catch (err: any) {
       setFirebaseError(err.message);

@@ -1,3 +1,4 @@
+'use client';
 import { useQuery } from '@tanstack/react-query';
 import { UnsplashResponseType } from '../type/unsplashResponseType';
 
@@ -23,8 +24,6 @@ const useUnsplashGet = (country: string) => {
       if (!response.ok) {
         throw new Error(data?.errors?.[0] || 'Failed to fetch Unsplash image');
       }
-
-      console.log(data);
 
       return data[0]; // 배열 중 첫 번째 이미지
     },

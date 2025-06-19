@@ -10,13 +10,28 @@ import {
   GithubAuthProvider,
 } from 'firebase/auth';
 import firebaseApp from './firebase';
+import { saveUserToFirestore } from './authCRUD';
 
 const auth = getAuth(firebaseApp);
 
-// 회원가입
-export const registerWithEmail = (email: string, password: string) =>
-  createUserWithEmailAndPassword(auth, email, password);
+// 이메일 회원가입입
+export const registerWithEmail = async (email: string, password: string) => {
+  // Firebase Auth에 사용자 생성
+  const result = await createUserWithEmailAndPassword(auth, email, password);
+  const user = result.user;
 
+  // USER 컬렉션에 사용자 정보 저장
+  await saveUserToFirestore({
+    uid: user.uid,
+    email: user.email,
+    displayName: user.displayName || '',
+    phoneNumber: null,
+    photoURL: null,
+    providerId: '',
+  });
+
+  return user;
+};
 // 로그인
 export const signInWithEmail = (email: string, password: string) =>
   signInWithEmailAndPassword(auth, email, password);
