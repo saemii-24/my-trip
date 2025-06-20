@@ -88,7 +88,7 @@ export default function LoginPage() {
             </h1>
             <div className='flex gap-6 justify-center ml-[-4px] items-center mb-6'>
               <button onClick={handleGoogleLogin} className='size-5'>
-                <Google className='size-6' />
+                <Google className='size-6 mt-[1.8px]' />
               </button>
               <button onClick={handleGithubLogin} className='size-5'>
                 <Github className='size-6' />
