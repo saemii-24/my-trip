@@ -5,17 +5,18 @@ import LoginBackground from '@components/login/LoginBackground';
 import SigninForm from '@components/login/SigninForm';
 import LoginTitle from '@components/login/LoginTitle';
 import SocialLoginButton from '@components/login/SocialLoginButton';
+
 import BounceLoading from '@components/public/BounceLoading';
 
 import useUnsplashGet from '@query/useUnsplashGet';
 
-import { selectedLocation } from '@utils/randomImageKeyword';
+import { countryObj } from '@utils/randomImageKeyword';
 import LoginForm from '@components/login/LoginForm';
 import { useState } from 'react';
 
 export default function LoginPage() {
   const [isSignin, setIsSignin] = useState<boolean>(false);
-  const { country } = selectedLocation;
+  const { country } = countryObj;
   console.log(country);
 
   //Unsplash Image
