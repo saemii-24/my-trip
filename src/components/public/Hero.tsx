@@ -10,8 +10,6 @@ import HeroInfo from './HeroInfo';
 
 const Hero = () => {
   const { country } = countryObj;
-  //Unsplash Image
-  const { country, city } = countryObj;
   const { unsplashData, unsplashIsLoading } = useUnsplashGet(country);
 
   //Gemini Prompt
