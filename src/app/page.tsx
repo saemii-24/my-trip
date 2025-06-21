@@ -7,9 +7,6 @@ import Recommendation from '@components/public/Recommendation/Recommendation';
 export default function Page() {
   return (
     <>
-      <Container>
-        <Header />
-      </Container>
       <Hero />
       <Benefits />
       <Recommendation />

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Provider from './_provider';
 import { pretendard, suit } from '../font';
+import Header from '@components/public/Header';
+import Container from '@components/public/Container';
 
 export const metadata: Metadata = {
   title: 'my-trip',
@@ -12,7 +14,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='ko' className={`${pretendard.variable} ${suit.variable} `}>
       <body>
-        <Provider>{children}</Provider>
+        <Provider>
+          <Container>
+            <Header />
+          </Container>
+          {children}
+        </Provider>
       </body>
     </html>
   );

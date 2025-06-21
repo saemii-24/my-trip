@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const LoginBackground = ({ className }: BasicProps) => {
   return (
-    <div className='size-full absolute inset-0'>
+    <div className={className}>
       {/* {unsplashData?.urls && ( */}
       <Image
         // src={unsplashData?.urls.full}
