@@ -32,7 +32,7 @@ const Hero = () => {
   }
 
   return (
-    <div className=' w-[calc(100vw-32px)] h-[calc(100vh-120px)] rounded-2xl overflow-hidden mx-auto relative'>
+    <div className='mt-14 w-[calc(100vw-32px)] h-[calc(100vh-120px)] rounded-2xl overflow-hidden mx-auto relative'>
       <div className='size-full relative'>
         {/* 이미지 배경 */}
         {unsplashData?.urls && (
