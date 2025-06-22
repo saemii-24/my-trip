@@ -20,7 +20,7 @@ export const questionnaireItems = [
   {
     id: 'mustInclude',
     title: '일정에 꼭 포함되었으면 하는 것이 있나요?',
-    waitAnswer: '꼭 가고 싶은 장소나, 해보고 싶은 것이 있다면 자유롭게 적어주세요.',
+    waitAnswer: '꼭 가고 싶은 장소나, 해보고 싶은 것이 있다면\n 자유롭게 적어주세요.',
     selectedNotice: 'user님이 적어주신 내용은 일정에 꼭 포함할게요.',
   },
 ];

@@ -1,6 +1,6 @@
 import LoginBackground from '@components/login/LoginBackground';
-import Questionnaire from '@components/questionnaire/Questionnaire';
-import StepNotice from '@components/questionnaire/StepNotice';
+import Questionnaire from '@components/Questionnaire/Questionnaire';
+import StepNotice from '@components/Questionnaire/StepNotice';
 import React from 'react';
 
 export default function QuestionnairePage() {

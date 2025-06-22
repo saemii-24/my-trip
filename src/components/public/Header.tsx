@@ -3,7 +3,7 @@ import MenuHamburger1 from '@components/icon/MenuHamburger1';
 
 const Header = () => {
   return (
-    <header className='h-[60px] flex items-center justify-between'>
+    <header className='h-[60px] flex items-center justify-between px-5  fixed top-0 right-0 left-0 '>
       <div className='flex items-center h-full'>
         <h1 className='font-suit font-medium text-2xl'>My Trip</h1>
         <div className='border-l-2 border-black text-sm ml-3 pl-3 font-suit'>
