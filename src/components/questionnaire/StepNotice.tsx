@@ -9,7 +9,7 @@ const StepNotice = () => {
   const userValue = '서울';
   const { user, loading, isLoggedIn } = useFirebaseAuth();
   return (
-    <div className='min-h-[100vh-60px] pt-[60px] w-[450px] bg-white'>
+    <div className='min-h-[100vh-60px] pt-[60px] w-[500px] bg-white'>
       <div className='p-5 '>
         <div className='mt-6'>
           <h1 className='text-3xl font-semibold'>
