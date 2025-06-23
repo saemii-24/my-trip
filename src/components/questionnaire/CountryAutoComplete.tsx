@@ -1,5 +1,6 @@
 'use client';
 
+import ArrowRight from '@components/icon/ArrowRight';
 import { countryObjList } from '@utils/randomImageKeyword';
 import { useEffect, useRef, useState } from 'react';
 
@@ -54,8 +55,7 @@ export default function CountryAutoComplete() {
   };
 
   return (
-    <div ref={wrapperRef} className='relative w-72'>
-      <label className='block text-sm font-medium text-gray-700 mb-1'>국가 선택</label>
+    <div ref={wrapperRef} className='relative w-full h-20'>
       <input
         type='text'
         value={query}
@@ -65,11 +65,11 @@ export default function CountryAutoComplete() {
         }}
         onFocus={() => setIsOpen(true)}
         placeholder='국가명을 입력하세요'
-        className='w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500'
+        className='placeholder:font-light placeholder:text-gray-100 w-full  py-2 text-6xl font-semibold h-full border-b border-gray-800 focus:outline-none '
       />
 
       {isOpen && filteredCountries.length > 0 && (
-        <div className='absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto'>
+        <div className='absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-sm max-h-[200px] overflow-auto'>
           {filteredCountries.map((item) => (
             <div
               key={item.country}
@@ -84,10 +84,13 @@ export default function CountryAutoComplete() {
       )}
 
       {isOpen && filteredCountries.length === 0 && (
-        <div className='absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md px-4 py-2 text-gray-500'>
+        <div className='absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-sm px-4 py-2 text-gray-500'>
           일치하는 국가가 없습니다.
         </div>
       )}
+      <button className='size-10 rounded-full center-flex bg-lime-400 absolute right-0 bottom-2 hover:bg-lime-500 transition'>
+        <ArrowRight className='text-white size-5' />
+      </button>
     </div>
   );
 }
