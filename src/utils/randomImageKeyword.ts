@@ -1,5 +1,6 @@
-export const countryObjList = [
+export const rawCountryList = [
   {
+    flag: '241/20220224_233513043.gif',
     country: 'South Korea',
     countryKR: '대한민국',
     searchKeywords: ['South Korea', 'Korea', 'Republic of Korea', 'ROK'],
@@ -8,6 +9,7 @@ export const countryObjList = [
     citiesKR: ['서울', '부산', '제주'],
   },
   {
+    flag: '232/20220318_161621275.gif',
     country: 'France',
     countryKR: '프랑스',
     searchKeywords: ['France', 'French Republic'],
@@ -16,6 +18,7 @@ export const countryObjList = [
     citiesKR: ['파리', '니스', '리옹'],
   },
   {
+    flag: '176/20220318_162955741.gif',
     country: 'Japan',
     countryKR: '일본',
     searchKeywords: ['Japan'],
@@ -24,6 +27,7 @@ export const countryObjList = [
     citiesKR: ['도쿄', '교토', '오사카'],
   },
   {
+    flag: '81/20220504_170107685.jpg',
     country: 'United States',
     countryKR: '미국',
     searchKeywords: ['United States', 'USA', 'US', 'America'],
@@ -32,6 +36,7 @@ export const countryObjList = [
     citiesKR: ['뉴욕', '로스앤젤레스', '샌프란시스코', '라스베이거스'],
   },
   {
+    flag: '155/20220318_161717544.gif',
     country: 'United Kingdom',
     countryKR: '영국',
     searchKeywords: ['United Kingdom', 'UK', 'Britain', 'England'],
@@ -40,6 +45,7 @@ export const countryObjList = [
     citiesKR: ['런던', '에든버러', '맨체스터'],
   },
   {
+    flag: '173/20220318_162836837.gif',
     country: 'Italy',
     countryKR: '이탈리아',
     searchKeywords: ['Italy'],
@@ -48,6 +54,7 @@ export const countryObjList = [
     citiesKR: ['로마', '베니스', '피렌체', '밀라노'],
   },
   {
+    flag: '214/20241014_152319731.jpg',
     country: 'Thailand',
     countryKR: '태국',
     searchKeywords: ['Thailand'],
@@ -56,6 +63,7 @@ export const countryObjList = [
     citiesKR: ['방콕', '푸켓', '치앙마이'],
   },
   {
+    flag: '128/20220318_161418873.gif',
     country: 'Spain',
     countryKR: '스페인',
     searchKeywords: ['Spain'],
@@ -64,6 +72,7 @@ export const countryObjList = [
     citiesKR: ['바르셀로나', '마드리드', '세비야'],
   },
   {
+    flag: '216/20220318_170408650.gif',
     country: 'Turkey',
     countryKR: '튀르키예',
     searchKeywords: ['Turkey'],
@@ -72,6 +81,7 @@ export const countryObjList = [
     citiesKR: ['이스탄불', '카파도키아', '안탈리아'],
   },
   {
+    flag: '24/20220720_160223089.gif',
     country: 'Greece',
     countryKR: '그리스',
     searchKeywords: ['Greece'],
@@ -80,6 +90,7 @@ export const countryObjList = [
     citiesKR: ['산토리니', '아테네', '미코노스'],
   },
   {
+    flag: '240/20241015_095812496.jpg',
     country: 'Australia',
     countryKR: '호주',
     searchKeywords: ['Australia'],
@@ -88,14 +99,7 @@ export const countryObjList = [
     citiesKR: ['시드니', '멜버른', '브리즈번'],
   },
   {
-    country: 'Indonesia',
-    countryKR: '인도네시아',
-    searchKeywords: ['Indonesia'],
-    searchKeywordsKR: ['인도네시아'],
-    cities: ['Bali', 'Jakarta', 'Yogyakarta'],
-    citiesKR: ['발리', '자카르타', '욕야카르타'],
-  },
-  {
+    flag: '195/20241016_095730026.png',
     country: 'Canada',
     countryKR: '캐나다',
     searchKeywords: ['Canada'],
@@ -104,6 +108,12 @@ export const countryObjList = [
     citiesKR: ['밴쿠버', '토론토', '몬트리올'],
   },
 ];
+
+// flag URL을 포함한 최종 리스트
+export const countryObjList = rawCountryList.map((item) => ({
+  ...item,
+  flag: `${process.env.NEXT_PUBLIC_FLAG_BASE_URL}/${item.flag}`,
+}));
 
 export const countryObj =
   countryObjList[Math.floor(Math.random() * countryObjList.length)];

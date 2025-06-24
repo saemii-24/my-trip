@@ -1,6 +1,8 @@
 import ArrowLeft from '@components/icon/ArrowLeft';
 import React from 'react';
 import CountryAutoComplete from './CountryAutoComplete';
+import CityAutoComplete from './CityAutoComplete';
+import CountryCitySelector from './CountryCitySelector';
 
 const Questionnaire = () => {
   return (
@@ -12,8 +14,8 @@ const Questionnaire = () => {
             <span className='text-sm'>1-1.</span>
           </div>
           <h1 className='font-bold text-lg'>어떤 나라를 여행하실 예정이세요?</h1>
-          <div className='w-full mt-auto mb-6'>
-            <CountryAutoComplete />
+          <div className='w-full mt-auto mb-10'>
+            <CountryCitySelector />
           </div>
         </div>
       </div>

@@ -14,5 +14,7 @@ declare namespace NodeJS {
     NEXT_PUBLIC_GOOGLE_MAP_API: string;
     NEXT_PUBLIC_GOOGLE_GEMINI_API: string;
     NEXT_PUBLIC_UNSPLASH_API: string;
+    NEXT_PUBLIC_GOV_API: string;
+    NEXT_PUBLIC_FLAG_BASE_URL: stirng;
   }
 }

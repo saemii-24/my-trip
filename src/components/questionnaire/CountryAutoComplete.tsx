@@ -1,13 +1,17 @@
 'use client';
-
+import Image from 'next/image';
 import ArrowRight from '@components/icon/ArrowRight';
 import { countryObjList } from '@utils/randomImageKeyword';
 import { useEffect, useRef, useState } from 'react';
 
 // 한글 포함 여부 체크
-const isKorean = (text: string) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
+export const isKorean = (text: string) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
 
-export default function CountryAutoComplete() {
+export default function CountryAutoComplete({
+  onSelectCountry,
+}: {
+  onSelectCountry: (country: (typeof countryObjList)[0]) => void;
+}) {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,9 +36,15 @@ export default function CountryAutoComplete() {
   });
 
   const handleSelect = (displayName: string) => {
-    setSelected(displayName);
-    setQuery(displayName);
-    setIsOpen(false);
+    const selected = filteredCountries.find(
+      (item) => item.country === displayName || item.countryKR === displayName,
+    );
+    if (selected) {
+      setSelected(displayName);
+      setQuery(displayName);
+      setIsOpen(false);
+      onSelectCountry(selected); // 👈 상위로 전달
+    }
   };
 
   //바깥 눌러서 드롭다운 닫기
@@ -74,9 +84,15 @@ export default function CountryAutoComplete() {
             <div
               key={item.country}
               onClick={() => handleSelect(getDisplayName(item))}
-              className='px-4 py-2 hover:bg-blue-100 cursor-pointer flex items-center gap-2'
+              className='px-4 py-2 hover:bg-lime-100 cursor-pointer flex items-center gap-2'
             >
               {/* TODO: 국가 이모지 링크 추가 예정 */}
+              <Image
+                src={item.flag}
+                alt={item.citiesKR + '국기'}
+                width={36}
+                height={36}
+              />
               <span>{getDisplayName(item)}</span>
             </div>
           ))}
