@@ -9,7 +9,7 @@ const useCountryFlagGet = (country: string) => {
         throw new Error('Missing Country API Key');
       }
 
-      const countryBaseUrl = `http://apis.data.go.kr/1262000/CountryFlagService2/getCountryFlagList2?serviceKey=${process.env.NEXT_PUBLIC_COUNTRY_API_KEY}&cond[country_nm::EQ]=${country}`;
+      const countryBaseUrl = `http://apis.data.go.kr/1262000/CountryFlagService2/getCountryFlagList2?serviceKey=${process.env.NEXT_PUBLIC_GOV_API}&cond[country_nm::EQ]=${country}`;
 
       const response = await fetch(countryBaseUrl);
       const responseJson = await response.json();

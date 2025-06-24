@@ -3,7 +3,7 @@ interface itineraryPromptType {
 }
 export function itineraryPromptFunc(country: string) {
   const newPrompt = `
-  넌 사용자의 선호도를 조사한 후 맞춤형 해외 여행 일정을 짜는 여행 일정 기획 전문 AI에요.
+  당신은 사용자의 선호도를 조사한 후 맞춤형 해외 여행 일정을 짜는 여행 일정 기획 전문 AI에요.
   사용자가 응답한 정보를 바탕으로 여행일정을 짜주세요.
 
   아래는 사용자가 응답한 선호하는 여행 스타일이에요.
@@ -47,6 +47,8 @@ interface Place {
 5. 사용자가 입력한 취향(preference)에 따라 장소와 활동을 선정해 주세요.
 6. 장소 간 이동은 하루에 30km를 넘기지 않도록 고려해 주세요.
 7. 다른 말은 하지 말고 위 형식 그대로 응답해 주세요.
+
+당신이 응답한이름을 이용해 구글 맵에 서치하여 이미지를 띄울 것이기 때문에 검색이 가능한 형식으로 해당 질문에 답변해주세요.
 `;
   return newPrompt;
 }

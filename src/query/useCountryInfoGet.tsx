@@ -13,7 +13,7 @@ const useCountryInfoGet = (country: string) => {
   const countryInfoGet = useQuery<CountryInfoGetType, Error>({
     queryKey: ['countryInfo', country],
     queryFn: async () => {
-      if (!process.env.NEXT_PUBLIC_COUNTRY_API_KEY) {
+      if (!process.env.NEXT_PUBLIC_GOV_API) {
         throw new Error('Missing Country API Key');
       }
 
