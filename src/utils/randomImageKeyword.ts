@@ -112,7 +112,7 @@ export const rawCountryList = [
 // flag URL을 포함한 최종 리스트
 export const countryObjList = rawCountryList.map((item) => ({
   ...item,
-  flag: `${process.env.NEXT_PUBLIC_FLAG_BASE_URL}/flags/${item.flag}`,
+  flag: `${process.env.NEXT_PUBLIC_FLAG_BASE_URL}/${item.flag}`,
 }));
 
 export const countryObj =

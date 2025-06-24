@@ -12,7 +12,7 @@ const Questionnaire = () => {
             <span className='text-sm'>1-1.</span>
           </div>
           <h1 className='font-bold text-lg'>어떤 나라를 여행하실 예정이세요?</h1>
-          <div className='w-full mt-auto mb-6'>
+          <div className='w-full mt-auto mb-10'>
             <CountryAutoComplete />
           </div>
         </div>

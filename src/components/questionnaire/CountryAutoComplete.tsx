@@ -1,5 +1,5 @@
 'use client';
-
+import Image from 'next/image';
 import ArrowRight from '@components/icon/ArrowRight';
 import { countryObjList } from '@utils/randomImageKeyword';
 import { useEffect, useRef, useState } from 'react';
@@ -74,9 +74,15 @@ export default function CountryAutoComplete() {
             <div
               key={item.country}
               onClick={() => handleSelect(getDisplayName(item))}
-              className='px-4 py-2 hover:bg-blue-100 cursor-pointer flex items-center gap-2'
+              className='px-4 py-2 hover:bg-lime-100 cursor-pointer flex items-center gap-2'
             >
               {/* TODO: 국가 이모지 링크 추가 예정 */}
+              <Image
+                src={item.flag}
+                alt={item.citiesKR + '국기'}
+                width={36}
+                height={36}
+              />
               <span>{getDisplayName(item)}</span>
             </div>
           ))}
