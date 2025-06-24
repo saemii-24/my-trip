@@ -5,9 +5,13 @@ import { countryObjList } from '@utils/randomImageKeyword';
 import { useEffect, useRef, useState } from 'react';
 
 // 한글 포함 여부 체크
-const isKorean = (text: string) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
+export const isKorean = (text: string) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(text);
 
-export default function CountryAutoComplete() {
+export default function CountryAutoComplete({
+  onSelectCountry,
+}: {
+  onSelectCountry: (country: (typeof countryObjList)[0]) => void;
+}) {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -32,9 +36,15 @@ export default function CountryAutoComplete() {
   });
 
   const handleSelect = (displayName: string) => {
-    setSelected(displayName);
-    setQuery(displayName);
-    setIsOpen(false);
+    const selected = filteredCountries.find(
+      (item) => item.country === displayName || item.countryKR === displayName,
+    );
+    if (selected) {
+      setSelected(displayName);
+      setQuery(displayName);
+      setIsOpen(false);
+      onSelectCountry(selected); // 👈 상위로 전달
+    }
   };
 
   //바깥 눌러서 드롭다운 닫기
