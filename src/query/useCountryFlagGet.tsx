@@ -5,7 +5,7 @@ const useCountryFlagGet = (country: string) => {
   const countryFlagGet = useQuery<CountryFlagGetType, Error>({
     queryKey: ['countryFlag', country],
     queryFn: async () => {
-      if (!process.env.NEXT_PUBLIC_COUNTRY_API_KEY) {
+      if (!process.env.NEXT_PUBLIC_GOV_API_KEY) {
         throw new Error('Missing Country API Key');
       }
 
