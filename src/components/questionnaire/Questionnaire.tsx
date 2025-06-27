@@ -1,9 +1,6 @@
 import ArrowLeft from '@components/icon/ArrowLeft';
 import React from 'react';
-import CountryAutoComplete from './CountryAutoComplete';
-import CityAutoComplete from './CityAutoComplete';
-import CountryCitySelector from './CountryCitySelector';
-
+import CountryCitySelector from './First/CountryCitySelector';
 const Questionnaire = () => {
   return (
     <div className='bg-red-300 min-h-screen flex-1 p-12'>
