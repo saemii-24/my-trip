@@ -17,7 +17,7 @@ const useCountryInfoGet = (country: string) => {
         throw new Error('Missing Country API Key');
       }
 
-      const countryBaseUrl = `http://apis.data.go.kr/1262000/CountryBasicService/getCountryBasicList?countryName=${country}&ServiceKey=${process.env.NEXT_PUBLIC_COUNTRY_API_KEY}`;
+      const countryBaseUrl = `http://apis.data.go.kr/1262000/CountryBasicService/getCountryBasicList?countryName=${country}&ServiceKey=${process.env.NEXT_PUBLIC_GOV_API_KEY}`;
 
       const response = await fetch(countryBaseUrl);
       const xmlText = await response.text();
