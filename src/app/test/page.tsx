@@ -1,7 +1,7 @@
 'use client';
 import useCountryFlagGet from '@query/useCountryFlagGet';
 import useCountryInfoGet from '@query/useCountryInfoGet';
-import { useGeminiGet } from '@query/useGeminiPost';
+import { useGeminiGet } from '@query/useGeminiGet';
 import { itineraryPromptFunc } from '../../prompt/itinerary';
 import Container from '@components/public/Container';
 import Header from '@components/public/Header';

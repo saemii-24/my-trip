@@ -30,7 +30,8 @@ export function useGeminiGet(prompt: string) {
       // console.log(itineraryPromptParsing(rawText));
 
       // return itineraryPromptParsing(rawText);
-      // //title과 content로 파싱한다.
+
+      //title과 content로 파싱한다.
       const titleMatch = rawText.match(/Title:\s*(.+)/);
       const contentMatch = rawText.match(/Content:\s*([\s\S]+)/);
 
