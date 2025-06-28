@@ -1,5 +1,5 @@
 import React from 'react';
-import CountryCitySelector from '../CountryCitySelector';
+import CountryCitySelector from './CountryCitySelector';
 
 const FirstQuestionnaire = () => {
   return (
