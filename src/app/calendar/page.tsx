@@ -10,7 +10,6 @@ import ChevronRight from '@components/icon/ChevronRight';
 import { cn } from '@utils/cn';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import '@/app/globals.css';
 
 export default function Page() {
   return (

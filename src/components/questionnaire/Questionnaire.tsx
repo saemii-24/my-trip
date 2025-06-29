@@ -3,6 +3,7 @@ import Title from './Title';
 import Textarea from './Fourth/Textarea';
 import Button from '@components/Button';
 import TravelPreference from './Third/TravelPreference';
+import DateRangePicker from './Second/DateRangePicker';
 
 const Questionnaire = () => {
   return (
@@ -11,7 +12,8 @@ const Questionnaire = () => {
         <Title num={'01'} title={'@@님은 어딜 여행하실 계획이신가요?'} />
         {/* <Textarea />
         <Button /> */}
-        <TravelPreference />
+        {/* <TravelPreference /> */}
+        <DateRangePicker />
       </div>
     </div>
   );

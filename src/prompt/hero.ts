@@ -5,7 +5,7 @@ interface HeroPromptType {
 
 export default function heroPromptFunc({ country, description }: HeroPromptType): string {
   const newPrompt = `
-"${country}"를 주제로 한 멋진 풍경 사진이에요.
+이 사진은 ${country}"를 주제로 한 멋진 풍경 사진이에요.
 이미지의 설명은 다음과 같아요: "${description}".
 
 이 이미지를 바탕으로 여행 웹사이트의 Hero Section에 어울리는
