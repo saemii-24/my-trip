@@ -4,7 +4,7 @@ import Image from 'next/image';
 import useUnsplashGet from '../../query/useUnsplashGet';
 import { countryObj } from '@utils/randomImageKeyword';
 import BounceLoading from './BounceLoading';
-import { useGeminiGet } from '../../query/useGeminiPost';
+import { useGeminiGet } from '../../query/useGeminiGet';
 import heroPromptFunc from '../../prompt/hero';
 import HeroInfo from './HeroInfo';
 
