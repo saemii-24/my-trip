@@ -1,0 +1,11 @@
+/*전체*/
+.react-datepicker {
+  @apply !border-none;
+  font-family: var(--font-suit), sans-serif;
+}
+/* 헤더 */
+.react-datepicker__header {
+  @apply !bg-white !border-none;
+}
+
+/*날짜 칸*/
