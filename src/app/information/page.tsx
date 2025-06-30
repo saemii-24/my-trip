@@ -1,16 +1,17 @@
 import Aeroplane1 from '@components/icon/Aeroplane1';
 import MapMarker5 from '@components/icon/MapMarker5';
+import ThumbsUp3 from '@components/icon/Thumbsup3';
 import Image from 'next/image';
 
 export default function DestinationPage() {
   return (
-    <div className='min-h-screen  bg-gray-50 pt-[60px]'>
+    <div className='min-h-screen  bg-[#F9F9F9] pt-[60px] '>
       <div className='max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6'>
         {/* Main Content (2/3) */}
 
         <div className='lg:col-span-2 space-y-8'>
           {/* Header */}
-          <div className='w-full h-[500px] bg-white flex flex-col  rounded-2xl overflow-hidden shadow-md'>
+          <div className='comp-border w-full h-[500px] bg-white flex flex-col  rounded-2xl overflow-hidden shadow-sm'>
             <div className='w-full h-[300px] overflow-hidden relative'>
               <Image
                 src='https://images.unsplash.com/photo-1614419349026-cbcfd0a3df2e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
@@ -20,24 +21,63 @@ export default function DestinationPage() {
                 priority
               />
             </div>
-            <div className='p-4 bg-white flex-1'>
-              <h1 className='text-3xl font-bold '>대만</h1>
-              <div className='flex gap-5'>
-                <div className='flex gap-1'>
-                  <MapMarker5 className='size-6 text-lime-500' />
-                  <span className='text-semibold'>아시아</span>
+            <div className='flex'>
+              <div className='mt-[-40px] ml-[30px] relative size-[180px] rounded-full border-[6px] border-white overflow-hidden'>
+                <Image
+                  src='https://images.unsplash.com/photo-1614419349026-cbcfd0a3df2e?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+                  alt='Taipei city view'
+                  fill
+                  objectFit='cover'
+                  priority
+                />
+              </div>
+              <div className='pl-6 pr-4 py-7 bg-white flex-1'>
+                <div className='flex items-center gap-2 '>
+                  <h1 className='text-3xl font-bold '>대만 · Taiwan</h1>
+                  <div className='bg-lime-100 rounded-full text-lime-600 text-sm px-2 py-[1px] font-medium w-fit'>
+                    아시아
+                  </div>
                 </div>
-                <div className='flex gap-1'>
-                  <Aeroplane1 className='size-6 text-lime-500' />
-                  <span className='text-semibold'>2시간 30분</span>
+                <div className='flex gap-5'>
+                  <div className='flex gap-1 mt-2'>
+                    <Aeroplane1 className='size-6 text-lime-500' />
+                    <div className='text-semibold'>
+                      <span>비행시간</span>
+                      <span>: </span>
+                      <span>2시간 30분</span>
+                    </div>
+                  </div>
+                  <div className='flex gap-1 mt-2'>
+                    <ThumbsUp3 className='size-6 text-lime-500' />
+                    <div className='text-semibold'>
+                      <span>여행 최적기</span>
+                      <span>: </span>
+                      <span>3월~5월, 10월~11월</span>
+                    </div>
+                  </div>
+                </div>
+                <div className='mt-5'>
+                  <div className='flex flex-wrap gap-2'>
+                    <span className='bg-gray-100 text-gray-600 px-3 py-2 rounded-full text-sm'>
+                      #맛집투어
+                    </span>
+                    <span className='bg-gray-100 text-gray-600 px-3 py-2 rounded-full text-sm'>
+                      #자연감성
+                    </span>
+                    <span className='bg-gray-100 text-gray-600 px-3 py-2 rounded-full text-sm'>
+                      #커플추천
+                    </span>
+                  </div>
                 </div>
               </div>
-              <p className='text-gray-600 mt-2 '>방문 최적기: 3~5월, 10~11월</p>
             </div>
             {/* Actions */}
-            <div className='bg-white p-4 rounded-xl shadow space-y-2'>
-              <button className='w-full border border-green-500 text-green-600 py-2 rounded-lg font-semibold'>
-                🗂 관심여행지 설정
+            <div className='bg-white p-4 border-t shadow flex items-center justify-between'>
+              <button className='hover:bg-lime-50 transition w-fit px-5  text-lime-500   py-2 rounded-lg font-semibold'>
+                맞춤 일정 계획하기
+              </button>
+              <button className='w-fit px-5 ml-auto border bg-lime-400 hover:bg-lime-500 transition  text-white py-2 rounded-lg font-semibold'>
+                관심여행지 설정
               </button>
             </div>
           </div>
@@ -107,6 +147,7 @@ export default function DestinationPage() {
 
         {/* Side Column (1/3) */}
         <div className='space-y-6'>
+          {/* Map */}
           {/* Info Box */}
           <div className='bg-white p-4 rounded-xl shadow space-y-2'>
             <h3 className='font-semibold text-lg'>핵심 정보</h3>
