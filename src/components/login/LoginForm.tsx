@@ -5,10 +5,13 @@ import { Dispatch, SetStateAction } from 'react';
 
 import { useForm } from 'react-hook-form';
 import FormButton from './FormButton';
+import { useRouter } from 'next/navigation';
+import { signInWithEmail } from '@utils/authService';
 
 interface LoginFormProps {
   setIsSignin: Dispatch<SetStateAction<boolean>>;
 }
+
 const LoginForm = ({ setIsSignin }: LoginFormProps) => {
   const {
     register,
@@ -18,9 +21,21 @@ const LoginForm = ({ setIsSignin }: LoginFormProps) => {
     mode: 'onBlur',
   });
 
-  const onSubmit = (data: any) => {
-    // console.log('Form submitted:', data);
-    //로그인 진행
+  const router = useRouter();
+
+  const onSubmit = async (data: any) => {
+    try {
+      const { user, country } = await signInWithEmail(data.email, data.password);
+
+      if (!country) {
+        router.push('/select-country');
+      } else {
+        router.push('/');
+      }
+    } catch (error: any) {
+      console.error('로그인 실패:', error.message);
+      alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+    }
   };
 
   return (
