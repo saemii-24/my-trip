@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
 type CurrencyRateResponse = {
-  currencyCode: string;
-  exchangeRate: string;
+  [key: string]: string;
 };
 
 const useCurrencyGet = (currencyCode: string) => {
-  const currencyRateGet = useQuery<CurrencyRateResponse, Error>({
+  const currencyRateGet = useQuery<CurrencyRateResponse[], Error>({
     queryKey: ['currencyRate', currencyCode],
     queryFn: async () => {
       const currencyCallUrl = `/api/currency?currencyCode=${currencyCode}`;
@@ -17,7 +16,7 @@ const useCurrencyGet = (currencyCode: string) => {
       }
 
       const data = await response.json();
-      return data;
+      return data.reverse();
     },
     retry: 0,
     enabled: !!currencyCode,
