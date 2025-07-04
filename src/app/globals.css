@@ -16,3 +16,7 @@ body {
 .center-flex {
   @apply flex items-center justify-center;
 }
+
+.comp-border {
+  @apply border border-slate-200;
+}
