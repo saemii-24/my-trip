@@ -1,6 +1,9 @@
+'use client';
+import CountryLocationMap from '@components/CountryLocationMap';
+import CurrencyChart from '@components/CurrencyChart';
 import Aeroplane1 from '@components/icon/Aeroplane1';
 import MapMarker5 from '@components/icon/MapMarker5';
-import ThumbsUp3 from '@components/icon/Thumbsup3';
+import ThumbsUp3 from '@components/icon/ThumbsUp3';
 import Image from 'next/image';
 
 export default function DestinationPage() {
@@ -92,7 +95,7 @@ export default function DestinationPage() {
           </section>
 
           {/* Itinerary */}
-          <section>
+          {/* <section>
             <h2 className='text-2xl font-semibold mb-2'>추천 일정</h2>
             <ul className='space-y-2'>
               <li className='bg-white p-4 rounded-xl shadow'>
@@ -105,7 +108,7 @@ export default function DestinationPage() {
                 3일차: 대만 박물관 → 더 정
               </li>
             </ul>
-          </section>
+          </section> */}
 
           {/* Spots */}
           <section>
@@ -150,27 +153,14 @@ export default function DestinationPage() {
           {/* Map */}
           {/* Info Box */}
           <div className='bg-white p-4 rounded-xl shadow space-y-2'>
-            <h3 className='font-semibold text-lg'>핵심 정보</h3>
-            <p>📍 대만, 타이베이</p>
-            <p>🗓 추천 시기: 3~5월, 10~11월</p>
-            <p>💰 예산 수준: 중간</p>
-            <p>🛬 타오위안 국제공항</p>
+            <h3 className='font-bold mb-2 text-gray-9050 text-xl'>위치</h3>
+            <CountryLocationMap lat={23.6987} lng={120.9605} zoom={7} />
           </div>
 
           {/* Tags */}
           <div className='bg-white p-4 rounded-xl shadow'>
-            <h3 className='font-bold mb-2 text-lime-500 text-xl'>추천 테마</h3>
-            <div className='flex flex-wrap gap-2'>
-              <span className='bg-gray-100 text-gray-600 px-3 py-2 rounded-full text-sm'>
-                #맛집투어
-              </span>
-              <span className='bg-gray-100 text-gray-600 px-3 py-2 rounded-full text-sm'>
-                #자연감성
-              </span>
-              <span className='bg-gray-100 text-gray-600 px-3 py-2 rounded-full text-sm'>
-                #커플추천
-              </span>
-            </div>
+            <h3 className='font-bold mb-2 text-gray-9050 text-xl'>환율</h3>
+            <CurrencyChart />
           </div>
         </div>
       </div>
