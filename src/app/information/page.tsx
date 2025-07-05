@@ -1,9 +1,28 @@
+'use client';
+import CountryLocationMap from '@components/CountryLocationMap';
+import CurrencyChart from '@components/CurrencyChart';
 import Aeroplane1 from '@components/icon/Aeroplane1';
 import MapMarker5 from '@components/icon/MapMarker5';
-import ThumbsUp3 from '@components/icon/Thumbsup3';
+import ThumbsUp3 from '@components/icon/ThumbsUp3';
 import Image from 'next/image';
+import RightSection from './_components/RightSection';
+import useCurrencyGet from '@query/useCurrencyGet';
+import { cn } from '@utils/cn';
+import ChevronLeft from '@components/icon/ChevronLeft';
+import ChevronRight from '@components/icon/ChevronRight';
 
 export default function DestinationPage() {
+  const callCurrencyCode = 'TWD';
+  const { currencyRateData } = useCurrencyGet(callCurrencyCode);
+  const currencyRate = currencyRateData?.currencyRate;
+
+  if (!currencyRate) return;
+
+  const todayRate = Number(Object.values(currencyRate[0])[0]);
+  const yesterdayRate = Number(Object.values(currencyRate[1])[0]);
+  const diff = Number((todayRate - yesterdayRate).toFixed(2));
+  const isUp = diff > 0;
+
   return (
     <div className='min-h-screen  bg-[#F9F9F9] pt-[60px] '>
       <div className='max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6'>
@@ -92,7 +111,7 @@ export default function DestinationPage() {
           </section>
 
           {/* Itinerary */}
-          <section>
+          {/* <section>
             <h2 className='text-2xl font-semibold mb-2'>추천 일정</h2>
             <ul className='space-y-2'>
               <li className='bg-white p-4 rounded-xl shadow'>
@@ -105,7 +124,7 @@ export default function DestinationPage() {
                 3일차: 대만 박물관 → 더 정
               </li>
             </ul>
-          </section>
+          </section> */}
 
           {/* Spots */}
           <section>
@@ -147,31 +166,67 @@ export default function DestinationPage() {
 
         {/* Side Column (1/3) */}
         <div className='space-y-6'>
-          {/* Map */}
           {/* Info Box */}
-          <div className='bg-white p-4 rounded-xl shadow space-y-2'>
-            <h3 className='font-semibold text-lg'>핵심 정보</h3>
-            <p>📍 대만, 타이베이</p>
-            <p>🗓 추천 시기: 3~5월, 10~11월</p>
-            <p>💰 예산 수준: 중간</p>
-            <p>🛬 타오위안 국제공항</p>
-          </div>
+          {/* <RightSection>
+            <RightSection.Title>위치</RightSection.Title>
+            <CountryLocationMap lat={23.6987} lng={120.9605} zoom={7} />
+          </RightSection> */}
 
-          {/* Tags */}
-          <div className='bg-white p-4 rounded-xl shadow'>
-            <h3 className='font-bold mb-2 text-lime-500 text-xl'>추천 테마</h3>
-            <div className='flex flex-wrap gap-2'>
-              <span className='bg-gray-100 text-gray-600 px-3 py-2 rounded-full text-sm'>
-                #맛집투어
-              </span>
-              <span className='bg-gray-100 text-gray-600 px-3 py-2 rounded-full text-sm'>
-                #자연감성
-              </span>
-              <span className='bg-gray-100 text-gray-600 px-3 py-2 rounded-full text-sm'>
-                #커플추천
-              </span>
+          <RightSection>
+            <RightSection.Title>
+              <div className='flex justify-between items-center'>
+                <span>환율</span>
+                <span className='text-gray-500 font-normal text-xs'>
+                  2025년 07월 05일 기준
+                </span>
+              </div>
+            </RightSection.Title>
+
+            <div className='flex w-full gap-6'>
+              <div className='w-full'>
+                {/* 🔹 예: "대만 TWD" */}
+                <div className='text-sm text-gray-600'>대만 {callCurrencyCode}</div>
+                {/* 🔸 오늘 환율 + 증감 표시 */}
+                <div className='flex items-end gap-2 text-xl font-bold text-gray-950'>
+                  {Object.values(currencyRate[0])[0]}
+                  <span
+                    className={cn(
+                      'text-sm font-medium',
+                      diff > 0 ? 'text-red-500' : 'text-lime-500',
+                    )}
+                  >
+                    {diff > 0 ? '▲' : '▼'} {Math.abs(diff)}
+                  </span>
+                </div>
+                {/* 🔹 차트 */}
+                <div className='w-[calc(100%)] '>
+                  <CurrencyChart
+                    currencyRateData={currencyRateData || undefined}
+                    showAxisLabels={false}
+                    showAxisLines={false}
+                    className='h-[80px]'
+                  />
+                </div>
+              </div>
+              <div className='grid-cols-2 gap-2 grid shrink-0 text-gray-600  text-sm  w-[120px]'>
+                <div>1개월전</div>
+                <div className='ml-auto'>40.01</div>
+                <hr className='col-span-2 bg-gray-500' />
+                <div>3개월전</div>
+                <div className='ml-auto'>40.01</div>
+                <hr className='col-span-2 bg-gray-500' />
+                <div>1년전</div>
+                <div className='ml-auto'>40.01</div>
+                <hr className='col-span-2 bg-gray-500' />
+                <div className='col-span-2 '>
+                  <div className='items-center flex justify-between'>
+                    <span>자세히 보기</span>
+                    <ChevronRight className='size-4' />
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </RightSection>
         </div>
       </div>
     </div>
