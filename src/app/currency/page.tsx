@@ -24,8 +24,9 @@ const LineChart = () => {
   const currencyCode = 'JPY';
   const { currencyRateData } = useCurrencyGet(currencyCode);
 
-  const labels = currencyRateData?.map((item) => Object.keys(item)[0]) ?? [];
-  const values = currencyRateData?.map((item) => Object.values(item)[0]) ?? [];
+  const labels = currencyRateData?.currencyRate.map((item) => Object.keys(item)[0]) ?? [];
+  const values =
+    currencyRateData?.currencyRate.map((item) => Object.values(item)[0]) ?? [];
 
   const data = {
     labels,
