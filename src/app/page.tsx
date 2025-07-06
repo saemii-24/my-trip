@@ -1,3 +1,4 @@
+import Advisory from '@components/Advisory';
 import Benefits from '@components/public/Benefits';
 import Container from '@components/public/Container';
 import Header from '@components/public/Header';
@@ -10,6 +11,7 @@ export default function Page() {
       <Hero />
       <Benefits />
       <Recommendation />
+      <Advisory />
     </>
   );
 }
