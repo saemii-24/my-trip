@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
 
+const changeMonthToPage = {
+  '1month': 3,
+  '3month': 7,
+  '12month': 25,
+};
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const currencyCode = searchParams.get('currencyCode')?.toUpperCase();
+  const day = searchParams.get('day') || '1';
 
   if (!currencyCode) {
     return NextResponse.json(
@@ -14,8 +21,8 @@ export async function GET(req: NextRequest) {
 
   try {
     const res = await fetch(
-      `https://finance.naver.com/marketindex/exchangeDailyQuote.nhn?marketindexCd=FX_${currencyCode}KRW`,
-      { cache: 'no-store' },
+      `https://finance.naver.com/marketindex/exchangeDailyQuote.nhn?marketindexCd=FX_${currencyCode}KRW&page=${day}`,
+      { cache: 'force-cache' },
     );
     const html = await res.text();
     const $ = cheerio.load(html);
@@ -31,6 +38,17 @@ export async function GET(req: NextRequest) {
         result.push({ [date]: rate });
       }
     });
+
+    //여기서 찾아지는 값은 {'2025.07.04':'100'}[] 임
+
+    if (day !== '1') {
+      const newDate = new Date();
+      const year = newDate.getFullYear();
+      const month = newDate.getMonth();
+      const day = newDate.getDay();
+      const today = `${year}.${month}.${day}`;
+      console.log(today);
+    }
 
     if (result.length === 0) {
       return NextResponse.json({ error: 'no exchange rate data' }, { status: 404 });
