@@ -4,6 +4,7 @@ import Provider from './_provider';
 import { pretendard, suit } from '../font';
 import Header from '@components/public/Header';
 import Container from '@components/public/Container';
+import Footer from '@components/public/Footer';
 
 export const metadata: Metadata = {
   title: 'my-trip',
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Header />
           </Container>
           {children}
+          <Footer />
         </Provider>
       </body>
     </html>

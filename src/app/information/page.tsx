@@ -199,12 +199,12 @@ export default function DestinationPage() {
                   </span>
                 </div>
                 {/* 🔹 차트 */}
-                <div className='w-[calc(100%)] '>
+                <div className='w-[calc(100%-120px)]'>
                   <CurrencyChart
                     currencyRateData={currencyRateData || undefined}
                     showAxisLabels={false}
                     showAxisLines={false}
-                    className='h-[80px]'
+                    className='h-[80px] w-full '
                   />
                 </div>
               </div>

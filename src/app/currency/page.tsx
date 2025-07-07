@@ -21,7 +21,7 @@ defaults.responsive = true; // 🔹 반응형 차트 활성화
 const LineChart = () => {
   // 🔸 선택된 탭의 인덱스 (0: 전체, 1: 이용 건수, 2: 재방문 건수, 3: 이탈 건수)
 
-  const currencyCode = 'JPY';
+  const currencyCode = 'USD';
   const { currencyRateData } = useCurrencyGet(currencyCode);
 
   const labels = currencyRateData?.currencyRate.map((item) => Object.keys(item)[0]) ?? [];
@@ -32,7 +32,7 @@ const LineChart = () => {
     labels,
     datasets: [
       {
-        label: 'JPY',
+        label: 'USD',
         data: values,
         fill: 'start',
         borderColor: lime['500'],
