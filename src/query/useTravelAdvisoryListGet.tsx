@@ -32,6 +32,8 @@ const useTravelAdvisoryListGet = (country: string, page = 1) => {
         throw new Error('No travel advisory data available');
       }
 
+      console.log(body.items);
+
       return {
         items: body.items,
         totalCount: body.totalCount,
