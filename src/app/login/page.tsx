@@ -17,7 +17,6 @@ import { useState } from 'react';
 export default function LoginPage() {
   const [isSignin, setIsSignin] = useState<boolean>(false);
   const { country } = countryObj;
-  console.log(country);
 
   //Unsplash Image
   const { unsplashData, unsplashIsLoading } = useUnsplashGet(country);

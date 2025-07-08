@@ -21,10 +21,7 @@ Table.Th = ({
 }) => (
   <div
     role='columnheader'
-    className={cn(
-      'p-3 font-semibold text-gray-700 border-b border-gray-300 bg-gray-100',
-      className,
-    )}
+    className={cn('p-3 text-lg font-semibold text-gray-600 ', className)}
   >
     {children}
   </div>
@@ -39,7 +36,7 @@ Table.Td = ({
 }) => (
   <div
     role='cell'
-    className={cn('p-3 text-gray-800 border-b border-gray-200', className)}
+    className={cn('p-3 font-semibold text-[30px] text-gray-800', className)}
   >
     {children}
   </div>

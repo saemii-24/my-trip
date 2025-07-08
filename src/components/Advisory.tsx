@@ -8,13 +8,13 @@ import Pagination from '@components/public/Advisory/Pagination';
 
 interface AdvisoryProps {
   pagination?: boolean;
-  defaultPage?: number;
+  numOfRows?: number;
 }
 
-export default function Advisory({ pagination = true, defaultPage = 10 }: AdvisoryProps) {
+export default function Advisory({ pagination = true, numOfRows = 10 }: AdvisoryProps) {
   const [page, setPage] = useState(1);
   const { travelAdvisoryTotalCount, travelAdvisoryData, travelAdvisoryIsLoading } =
-    useTravelAdvisoryListGet('미합중국', page);
+    useTravelAdvisoryListGet('미합중국', page, numOfRows);
 
   console.log(travelAdvisoryData);
 
@@ -23,12 +23,8 @@ export default function Advisory({ pagination = true, defaultPage = 10 }: Adviso
   }
 
   const totalPages = travelAdvisoryTotalCount
-    ? Math.ceil(travelAdvisoryTotalCount / defaultPage)
+    ? Math.ceil(travelAdvisoryTotalCount / numOfRows)
     : 1;
-
-  // const sortedData: TravelAdvisoryItemGetType[] = [...travelAdvisoryData].sort(
-  //   (a, b) => b.sfty_notice_origin_id - a.sfty_notice_origin_id,
-  // );
 
   return (
     <div className='w-full p-4'>
@@ -44,7 +40,7 @@ export default function Advisory({ pagination = true, defaultPage = 10 }: Adviso
             travelAdvisoryData.map((item, index) => (
               <Table.Row key={item.sfty_notice_id}>
                 <Table.Td>
-                  {travelAdvisoryTotalCount - ((page - 1) * defaultPage + index)}
+                  {travelAdvisoryTotalCount - ((page - 1) * numOfRows + index)}
                 </Table.Td>
                 <Table.Td>{item.title}</Table.Td>
                 <Table.Td className='text-right'>{item.wrt_dt}</Table.Td>

@@ -8,7 +8,7 @@ type ApiResponseType = {
   totalCount: number;
 };
 
-const useTravelAdvisoryListGet = (country: string, page = 1) => {
+const useTravelAdvisoryListGet = (country: string, page = 1, numOfRows = 10) => {
   const travelAdvisoryQuery = useQuery<ApiResponseType, Error>({
     queryKey: ['travelAdvisoryList', country, page],
     queryFn: async () => {
@@ -17,7 +17,7 @@ const useTravelAdvisoryListGet = (country: string, page = 1) => {
         throw new Error('Missing Country API Key');
       }
 
-      const baseUrl = `https://apis.data.go.kr/1262000/CountrySafetyService6/getCountrySafetyList6?serviceKey=${apiKey}&numOfRows=10&cond[country_nm::EQ]=${country}&pageNo=${page}`;
+      const baseUrl = `https://apis.data.go.kr/1262000/CountrySafetyService6/getCountrySafetyList6?serviceKey=${apiKey}&numOfRows=${numOfRows}&cond[country_nm::EQ]=${country}&pageNo=${page}`;
 
       const response = await fetch(baseUrl);
 
