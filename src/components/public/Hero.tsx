@@ -8,6 +8,7 @@ import { useGeminiGet } from '../../query/useGeminiGet';
 import heroPromptFunc from '../../prompt/hero';
 import HeroInfo from './HeroInfo';
 import { ChevronRight } from 'lucide-react';
+import Container from './Container';
 
 const Hero = () => {
   const { country } = countryObj;
@@ -49,7 +50,7 @@ const Hero = () => {
         <div className='absolute  inset-0 bg-gradient-to-b to-black/70 from-black/0 z-10'></div>
 
         {/* 콘텐츠 영역 */}
-        <div className='absolute bottom-20 left-20 text-white z-[10] '>
+        <Container className='absolute bottom-20 left-20 text-white z-[10] '>
           <h1 className='text-4xl md:text-6xl font-bold mb-4 max-w-[55%] !leading-[130%] break-keep'>
             {geminiData?.title}
           </h1>
@@ -65,22 +66,11 @@ const Hero = () => {
               <ChevronRight strokeWidth={2} className='text-white size-5' />
             </button>
           </div>
-        </div>
-        <HeroInfo
-          className='absolute z-[10] bottom-20 right-20'
-          unsplashData={unsplashData}
-        />
-        {/* <div className='absolute inset-0 z-20 flex flex-col items-start justify-center text-start text-white px-4'>
-          <h1 className='text-4xl md:text-6xl font-bold mb-4'>{geminiData?.title}</h1>
-          <p className='text-lg md:text-xl mb-6 max-w-2xl'>{geminiData?.content}</p>
-          <button className='bg-white text-black font-medium px-6 py-3 rounded-full hover:bg-gray-100 transition'>
-            자세히
-          </button>
-        </div>
-        <HeroInfo
-          className='absolute z-[100] bottom-10 right-10'
-          unsplashData={unsplashData}
-        /> */}
+          <HeroInfo
+            className='absolute z-[10] bottom-20 right-20'
+            unsplashData={unsplashData}
+          />
+        </Container>
       </div>
     </div>
   );

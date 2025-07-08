@@ -22,8 +22,6 @@ export default function LoginPage() {
   //Unsplash Image
   const { unsplashData, unsplashIsLoading } = useUnsplashGet(country);
 
-  console.log(unsplashData);
-
   //Loading
   if (unsplashIsLoading) {
     return <BounceLoading />;
