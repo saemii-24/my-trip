@@ -4,8 +4,6 @@ export default function Google({ className = 'text-gray-800' }: IconProps) {
   return (
     <svg
       className={className}
-      width='80'
-      height='80'
       viewBox='0 0 25 25'
       xmlns='http://www.w3.org/2000/svg'
       preserveAspectRatio='xMidYMid'

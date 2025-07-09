@@ -39,8 +39,8 @@ const LoginForm = ({ setIsSignin }: LoginFormProps) => {
   };
 
   return (
-    <div className='w-full max-w-sm'>
-      <form onSubmit={handleSubmit(onSubmit)} className='w-full space-y-4'>
+    <div className='w-full '>
+      <form onSubmit={handleSubmit(onSubmit)} className='w-full space-y-2'>
         <Input
           placeholder='이메일'
           type='email'
@@ -68,14 +68,13 @@ const LoginForm = ({ setIsSignin }: LoginFormProps) => {
         <FormButton>로그인</FormButton>
       </form>
       <p className='mt-4 text-sm text-gray-700 text-center'>
-        My Trip이 처음이신가요?
+        TWA가 처음이신가요?{' '}
         <span
           onClick={() => {
             setIsSignin(false);
           }}
           className='underline font-medium cursor-pointer'
         >
-          {' '}
           회원가입
         </span>
       </p>

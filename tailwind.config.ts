@@ -11,6 +11,9 @@ export default {
       spacing: {
         '150': '150px',
       },
+      borderRadius: {
+        '60': '60px',
+      },
       lineHeight: {
         '120': '120%',
         '130': '130%',

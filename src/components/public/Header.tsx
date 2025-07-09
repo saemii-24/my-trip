@@ -6,7 +6,7 @@ import { Plane } from 'lucide-react';
 const Header = () => {
   return (
     <header className='h-[80px] bg-white z-[100] flex items-center justify-between px-5  fixed top-0 right-0 left-0 '>
-      <Link href='#'>
+      <Link href='/'>
         <div className='flex items-center gap-1'>
           <Plane strokeWidth={2} className='text-green-500 size-8' />
           <div className='font-semibold text-3xl'>TWA</div>
