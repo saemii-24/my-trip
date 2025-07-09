@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
+  console.log(searchParams);
 
   // ✅ 필수 파라미터
   const apiKey = process.env.NEXT_PUBLIC_GOV_API_KEY;
@@ -28,7 +29,7 @@ export async function GET(req: NextRequest) {
   if (numOfRows) params.set('numOfRows', numOfRows);
 
   const fullUrl = `${baseUrl}?${params.toString()}`;
-  console.log(fullUrl);
+  // console.log(fullUrl);
 
   try {
     const res = await fetch(fullUrl);

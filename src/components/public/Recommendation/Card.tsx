@@ -28,7 +28,7 @@ const Card = ({ title, description, id, select, setSelect }: CardProps) => {
     >
       <button
         className={cn(
-          'absolute z-[11]  right-10 top-10 rounded-full size-12 center-flex bg-white transition-all hover:bg-green-50 ',
+          'absolute z-[11]  right-10 top-10 rounded-full size-12 flex-center bg-white transition-all hover:bg-green-50 ',
           {
             'bg-green-400': select === id,
           },

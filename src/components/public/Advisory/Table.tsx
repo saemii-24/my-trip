@@ -1,15 +1,39 @@
 import React from 'react';
-import { ChildrenProps } from '@type/public';
 import { cn } from '@utils/cn';
 
-const Table = ({ children, className = '' }: ChildrenProps & { className?: string }) => {
-  // 기본 3열 그리드
-  return <div className={cn('grid grid-cols-3 ', className)}>{children}</div>;
+const Table = ({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return <div className={cn('w-full', className)}>{children}</div>;
 };
 
+Table.Group = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <div
+    className={cn(
+      'grid grid-cols-[1fr_120px_160px_80px] gap-[100px] w-full border-b border-zinc-600',
+      className,
+    )}
+  >
+    {children}
+  </div>
+);
+
 Table.Row = ({ children }: { children: React.ReactNode }) => {
-  // 'contents'를 쓰면 부모 grid의 행 요소가 됨
-  return <div className='contents'>{children}</div>;
+  return (
+    <div className='grid grid-cols-[1fr_120px_160px_60px] w-full gap-[100px] '>
+      {children}
+    </div>
+  );
 };
 
 Table.Th = ({
@@ -21,7 +45,7 @@ Table.Th = ({
 }) => (
   <div
     role='columnheader'
-    className={cn('p-3 text-lg font-semibold text-gray-600 ', className)}
+    className={cn('px-3 py-4 text-lg  font-semibold text-gray-600', className)}
   >
     {children}
   </div>
@@ -36,8 +60,17 @@ Table.Td = ({
 }) => (
   <div
     role='cell'
-    className={cn('p-3 font-semibold text-[30px] text-gray-800', className)}
+    className={cn(
+      'h-[80px]  flex items-center font-semibold text-[30px] text-gray-800 px-3',
+      className,
+    )}
   >
+    {children}
+  </div>
+);
+
+Table.ExpandRow = ({ children }: { children: React.ReactNode }) => (
+  <div className='col-span-4 border-b border-zinc-600 p-4  text-gray-700 text-lg'>
     {children}
   </div>
 );

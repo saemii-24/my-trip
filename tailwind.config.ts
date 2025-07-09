@@ -8,6 +8,16 @@ export default {
   ],
   theme: {
     extend: {
+      spacing: {
+        '150': '150px',
+      },
+      lineHeight: {
+        '120': '120%',
+        '130': '130%',
+        '150': '150%',
+        '160': '160%',
+        '170': '170%',
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',

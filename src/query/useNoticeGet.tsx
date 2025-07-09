@@ -1,12 +1,38 @@
 import { useQuery } from '@tanstack/react-query';
 
+export type NoticeItem = {
+  file_download_url: string;
+  id: string;
+  title: string;
+  txt_origin_cn: string | null;
+  written_dt: string;
+};
+
+export type NoticeResponse = {
+  dataType: string;
+  items: {
+    item: NoticeItem[];
+  };
+  numOfRows: number;
+  pageNo: number;
+  totalCount: number;
+};
+
+type UseNoticeResult = {
+  items: {
+    item: NoticeItem[];
+  };
+  totalCount: number;
+};
+
 const useNoticeGet = (page = 1, numOfRows = 10) => {
-  const noticeQuery = useQuery({
+  const noticeQuery = useQuery<UseNoticeResult, Error>({
     queryKey: ['notice', page, numOfRows],
 
     queryFn: async () => {
-      const url = `/api/notice?pageNo=${page}?numOfRows=${numOfRows}`;
+      const url = `/api/notice?pageNo=${page}&numOfRows=${numOfRows}`;
 
+      console.log(url);
       const response = await fetch(url);
 
       if (!response.ok) {

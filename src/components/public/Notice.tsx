@@ -4,20 +4,26 @@ import { useState } from 'react';
 import Table from '@components/public/Advisory/Table';
 import useNoticeGet from '@query/useNoticeGet';
 import Container from './Container';
-import { Download, Megaphone } from 'lucide-react';
+import { ChevronDown, ChevronUp, Megaphone } from 'lucide-react';
 import Link from 'next/link';
 import formatDate from '@utils/formatDate';
+import Pagination from './Advisory/Pagination';
+import { cn } from '@utils/cn';
+import parseSentence from '@utils/parseSentece';
 
 interface NoticeProps {
   pagination?: boolean;
   numOfRows?: number;
 }
 
-export default function Notice({ pagination = true, numOfRows = 10 }: NoticeProps) {
+export default function Notice({ pagination = true, numOfRows = 8 }: NoticeProps) {
   const [page, setPage] = useState(1);
   const { noticeData, noticeIsLoading, noticeTotalCount } = useNoticeGet(page, numOfRows);
+  const [openId, setOpenId] = useState<string | null>(null);
 
-  console.log(numOfRows);
+  const toggle = (id: string) => {
+    setOpenId((prev) => (prev === id ? null : id));
+  };
 
   if (noticeIsLoading || !noticeData) {
     return <div className='p-4'>로딩 중...</div>;
@@ -26,7 +32,7 @@ export default function Notice({ pagination = true, numOfRows = 10 }: NoticeProp
   const totalPages = noticeTotalCount ? Math.ceil(noticeTotalCount / numOfRows) : 1;
 
   return (
-    <div className='w-full p-4 py-[150px]'>
+    <div className='w-full p-4 py-[150px] bg-zinc-50 mt-[150px]'>
       <Container>
         <div className='flex w-full justify-between'>
           <h1 className='text-4xl md:text-6xl font-bold mb-4 max-w-[55%] !leading-[130%] text-start'>
@@ -34,42 +40,62 @@ export default function Notice({ pagination = true, numOfRows = 10 }: NoticeProp
             <span className='ml-4'>외교부 공지사항</span>
           </h1>
           <div className='text-lg leading-[160%]'>
-            외교부에서 제공하는 출국 전<br /> 참고해야 할 공지사항을 확인하세요.
+            외교부에서 제공하는 출국 전
+            <br />
+            참고해야 할 공지사항을 확인하세요.
           </div>
         </div>
-        <div className='w-full overflow-x-auto  rounded-md'>
-          <Table className='grid-cols-[1fr_140px_300px]'>
-            <Table.Row>
-              {/* <Table.Th>No</Table.Th> */}
-              <Table.Th>제목</Table.Th>
-              <Table.Th>자료</Table.Th>
-              <Table.Th className='text-right'>작성일</Table.Th>
-            </Table.Row>
-            {noticeTotalCount &&
-              noticeData.map((item: any, index: number) => (
-                <Table.Row key={item.title}>
-                  {/* <Table.Td>
-                    {noticeTotalCount - ((page - 1) * numOfRows + index)}
-                  </Table.Td> */}
-                  <Table.Td>{item.title}</Table.Td>
-                  <Table.Td>
-                    {item.file_download_url && (
-                      <Link
-                        href={item.file_download_url}
-                        alt={item.title + '자료'}
-                        className='size-10 bg-green-400 center-flex rounded-full'
-                      >
-                        <Download />
-                      </Link>
-                    )}
-                  </Table.Td>
-                  <Table.Td className='text-right'>
-                    {formatDate(item.written_dt)}
-                  </Table.Td>
-                </Table.Row>
-              ))}
+
+        <div className='w-full overflow-x-auto rounded-md'>
+          <Table>
+            <Table.Group className='border-b border-zinc-600'>
+              <Table.Th>Title</Table.Th>
+              <Table.Th>File</Table.Th>
+              <Table.Th>Date</Table.Th>
+              <Table.Th>More</Table.Th>
+            </Table.Group>
+
+            {noticeData.map((item: any, index: number) => {
+              const id = `${page}-${index}`;
+              const isOpen = openId === id;
+
+              return (
+                <Table key={id}>
+                  <Table.Group>
+                    <Table.Td>{item.title}</Table.Td>
+                    <Table.Td>
+                      {item.file_download_url && (
+                        <Link
+                          href={item.file_download_url}
+                          target='_blank'
+                          className='flex-center text-lg border border-zinc-200 py-1 px-3 rounded-full hover:text-green-500'
+                        >
+                          첨부파일
+                        </Link>
+                      )}
+                    </Table.Td>
+                    <Table.Td>{formatDate(item.written_dt)}</Table.Td>
+                    <Table.Td>
+                      {item.txt_origin_cn && (
+                        <button
+                          onClick={() => toggle(id)}
+                          className='size-12  bg-zinc-100 hover:bg-green-500 rounded-full flex-center'
+                        >
+                          {isOpen ? <ChevronUp /> : <ChevronDown />}
+                        </button>
+                      )}
+                    </Table.Td>
+                  </Table.Group>
+
+                  {isOpen && item.txt_origin_cn && (
+                    <Table.ExpandRow>{parseSentence(item.txt_origin_cn)}</Table.ExpandRow>
+                  )}
+                </Table>
+              );
+            })}
           </Table>
         </div>
+
         {pagination && (
           <Pagination page={page} setPage={setPage} totalPages={totalPages} />
         )}

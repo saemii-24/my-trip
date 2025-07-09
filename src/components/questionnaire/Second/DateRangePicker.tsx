@@ -178,7 +178,7 @@ const DateRangePicker: React.FC<CalendarProps> = ({
                     <ChevronLeft className='size-6' />
                   </button>
                   <span
-                    className={cn('react-datepicker__current-month center-flex mb-1')}
+                    className={cn('react-datepicker__current-month flex-center mb-1')}
                   >
                     {monthDate.toLocaleString('ko', {
                       year: 'numeric',
