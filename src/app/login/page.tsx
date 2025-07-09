@@ -13,11 +13,14 @@ import useUnsplashGet from '@query/useUnsplashGet';
 import { countryObj } from '@utils/randomImageKeyword';
 import LoginForm from '@components/login/LoginForm';
 import { useState } from 'react';
+import Image from 'next/image';
+import Container from '@components/public/Container';
+import { Plane } from 'lucide-react';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [isSignin, setIsSignin] = useState<boolean>(false);
   const { country } = countryObj;
-  console.log(country);
 
   //Unsplash Image
   const { unsplashData, unsplashIsLoading } = useUnsplashGet(country);
@@ -28,27 +31,37 @@ export default function LoginPage() {
   }
 
   return (
-    <div className='w-screen h-screen relative'>
-      {/* 배경 이미지 */}
-      <LoginBackground className='size-full absolute inset-0' />
-      <div className='bg-white w-[calc(100vw-300px)] h-[calc(100vh-100px)] bg-red absolute top-[50px] right-[150px] rounded-3xl overflow-hidden border-[10px] border-white'>
-        <LoginBackground className='h-full right-0 absolute  rounded-2xl w-[60%] overflow-hidden' />
-        {/* 흰색 박스 영역 */}
-        <div className='relative z-10 flex flex-col md:flex-row w-full h-full'>
-          {/* 왼쪽 폼 */}
-          <div className='w-full md:w-[40%] bg-white flex flex-col justify-center items-center px-6 py-10 '>
+    <div className=' w-[calc(100vw-32px)] h-[calc(100vh-32px)] mt-4 rounded-[60px] overflow-hidden  mx-auto relative'>
+      <div className='size-full relative'>
+        <Image
+          src={unsplashData?.urls.full || ''}
+          alt={unsplashData?.alt_description || ''}
+          fill
+          style={{ objectFit: 'cover' }}
+          priority
+        />
+        {/* 블랙 그라데이션 오버레이 */}
+        <div className='absolute inset-0 bg-black/40 z-10'></div>
+        <Container className='absolute inset-0 z-[10] flex-col  w-full flex-center'>
+          <Link href='/' className='mb-4'>
+            <div className='flex items-center gap-1'>
+              <Plane strokeWidth={2} className='text-green-500 size-6' />
+              <div className='font-semibold text-xl text-white'>TWA</div>
+            </div>
+          </Link>
+          <div className=' w-[550px] bg-white flex flex-col justify-center items-center rounded-60  py-[60px] '>
             <LoginTitle />
-            <SocialLoginButton className='flex gap-6 justify-center ml-[-4px] items-center mb-6' />
-            <p className='mb-4 text-gray-500 text-center'>or</p>
-            {isSignin ? (
-              <LoginForm setIsSignin={setIsSignin} />
-            ) : (
-              <SigninForm setIsSignin={setIsSignin} />
-            )}
+
+            <div className='mt-10 w-full px-20'>
+              {isSignin ? (
+                <LoginForm setIsSignin={setIsSignin} />
+              ) : (
+                <SigninForm setIsSignin={setIsSignin} />
+              )}
+              <SocialLoginButton />
+            </div>
           </div>
-          {/* 오른쪽 이미지 설명 영역 */}
-          <BackgroundDescription className='hidden md:flex w-[60%] items-center justify-center relative rounded-3xl overflow-hidden' />
-        </div>
+        </Container>
       </div>
     </div>
   );

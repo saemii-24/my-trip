@@ -41,7 +41,7 @@ const HeroInfo = ({ className, unsplashData }: HeroInfoProps) => {
         <button className='font-medium text-lg text-gray-400 rounded-full transition flex items-center gap-5'>
           <span>Image Info</span>
         </button>
-        <button className='rounded-full size-12 center-flex bg-green-600 text-white hover:bg-green-700 transition'>
+        <button className='rounded-full size-12 flex-center bg-green-600 text-white hover:bg-green-700 transition'>
           <ArrowRight strokeWidth={2} className=' size-5' />
         </button>
       </div>

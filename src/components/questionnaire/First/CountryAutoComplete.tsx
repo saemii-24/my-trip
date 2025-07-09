@@ -116,7 +116,7 @@ export default function CountryAutoComplete({
 
       <button
         type='button'
-        className='size-10 rounded-full center-flex bg-lime-400 absolute right-0 bottom-2 hover:bg-lime-500 transition'
+        className='size-10 rounded-full flex-center bg-lime-400 absolute right-0 bottom-2 hover:bg-lime-500 transition'
       >
         <ArrowRight className='text-white size-5' />
       </button>

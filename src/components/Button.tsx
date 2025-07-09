@@ -9,7 +9,7 @@ const Button = ({ className, ...props }: ButtonProps) => {
   return (
     <button
       className={cn(
-        'size-10 rounded-full center-flex bg-lime-400 hover:bg-lime-500 transition',
+        'size-10 rounded-full flex-center bg-lime-400 hover:bg-lime-500 transition',
         className,
       )}
       {...props}

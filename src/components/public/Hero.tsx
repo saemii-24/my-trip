@@ -50,26 +50,25 @@ const Hero = () => {
         <div className='absolute  inset-0 bg-gradient-to-b to-black/70 from-black/0 z-10'></div>
 
         {/* 콘텐츠 영역 */}
-        <Container className='absolute bottom-20 left-20 text-white z-[10] '>
-          <h1 className='text-4xl md:text-6xl font-bold mb-4 max-w-[55%] !leading-[130%] break-keep'>
-            {geminiData?.title}
-          </h1>
-          <p className='text-lg md:text-xl mb-6  max-w-[60%] break-keep'>
-            {geminiData?.content}
-          </p>
-          <div className='flex items-center gap-3'>
-            <button className='bg-green-600 text-white  font-medium text-lg px-8 py-3 rounded-full hover:bg-green-700 transition'>
-              See more
-            </button>
-            <button className=' text-white group font-medium text-lg px-8 py-3 rounded-full transition flex items-center gap-5'>
-              <span className='group-hover:underline'>Make Plan</span>
-              <ChevronRight strokeWidth={2} className='text-white size-5' />
-            </button>
+        <Container className='absolute inset-0 z-[10] text-white'>
+          <div className='absolute left-4 bottom-20'>
+            <h1 className='text-4xl md:text-6xl font-bold mb-4 max-w-[55%] !leading-[130%] break-keep'>
+              {geminiData?.title}
+            </h1>
+            <p className='text-lg md:text-xl mb-6  max-w-[60%] break-keep'>
+              {geminiData?.content}
+            </p>
+            <div className='flex items-center gap-3'>
+              <button className='bg-green-600 text-white  font-medium text-lg px-8 py-3 rounded-full hover:bg-green-700 transition'>
+                See more
+              </button>
+              <button className=' text-white group font-medium text-lg px-8 py-3 rounded-full transition flex items-center gap-5'>
+                <span className='group-hover:underline'>Make Plan</span>
+                <ChevronRight strokeWidth={2} className='text-white size-5' />
+              </button>
+            </div>
           </div>
-          <HeroInfo
-            className='absolute z-[10] bottom-20 right-20'
-            unsplashData={unsplashData}
-          />
+          <HeroInfo className='absolute  bottom-20 right-4' unsplashData={unsplashData} />
         </Container>
       </div>
     </div>

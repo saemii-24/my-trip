@@ -24,15 +24,15 @@ const Input = ({
   disabled = false,
 }: InputProps) => {
   return (
-    <div className='mb-4'>
+    <div className=''>
       {label && (
-        <label className='block mb-1 text-sm font-medium text-gray-700'>{label}</label>
+        <label className='block mb-1 text-md font-medium text-gray-700'>{label}</label>
       )}
       <input
         type={type}
         placeholder={placeholder}
         disabled={disabled}
-        className={`w-full h-[44px] px-3 py-2 border rounded-full text-sm focus:outline-none focus:ring-2 ${
+        className={`w-full h-[50px] px-3 py-2 border rounded-2xl text-md focus:outline-none focus:ring-2 ${
           error
             ? 'border-red-500 focus:ring-red-400'
             : 'border-gray-300 focus:ring-blue-400'

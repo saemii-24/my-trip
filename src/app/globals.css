@@ -11,12 +11,21 @@
 
 body {
   font-family: var(--font-suit), sans-serif;
-}
-
-.center-flex {
-  @apply flex items-center justify-center;
+  @apply text-gray-900;
 }
 
 .comp-border {
   @apply border border-slate-200;
+}
+
+.flex-center {
+  @apply flex justify-center items-center;
+}
+
+.flex-left {
+  @apply flex justify-start items-center;
+}
+
+.flex-right {
+  @apply flex justify-end items-center;
 }

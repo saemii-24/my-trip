@@ -55,7 +55,7 @@ export default function TravelPreferenceForm() {
                 >
                   <div
                     className={cn(
-                      'rounded-full group-hover:bg-lime-100 bg-lime-50 size-14 center-flex',
+                      'rounded-full group-hover:bg-lime-100 bg-lime-50 size-14 flex-center',
                       { 'bg-lime-100': isSelected },
                     )}
                   >

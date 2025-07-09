@@ -13,7 +13,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 export default function Page() {
   return (
-    <div className='center-flex h-screen w-screen'>
+    <div className='flex-center h-screen w-screen'>
       <Calendar />
     </div>
   );

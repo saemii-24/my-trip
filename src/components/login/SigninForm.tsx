@@ -24,8 +24,8 @@ const SigninForm = ({ setIsSignin }: SigninFormProps) => {
   };
 
   return (
-    <div className='w-full max-w-sm'>
-      <form onSubmit={handleSubmit(onSubmit)} className='w-full space-y-4'>
+    <div className='w-full '>
+      <form onSubmit={handleSubmit(onSubmit)} className='w-full space-y-2'>
         <Input
           placeholder='이메일'
           type='email'
