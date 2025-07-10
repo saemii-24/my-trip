@@ -20,7 +20,8 @@ const CountryLocationMap = ({ lat, lng, zoom = 5, className }: LatLng) => {
       <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API}>
         <Map defaultZoom={zoom} defaultCenter={{ lat, lng }} mapId='CountryInfoMap'>
           <AdvancedMarker key={location.key} position={location.location}>
-            <Pin background={'#38aff8'} glyphColor={'#c4f244'} borderColor={'#38aff8'} />
+            {/* background={'#38aff8'} glyphColor={'#c4f244'} borderColor={'#38aff8'} */}
+            <Pin />
           </AdvancedMarker>
         </Map>
       </APIProvider>

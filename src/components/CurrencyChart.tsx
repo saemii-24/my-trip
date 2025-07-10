@@ -5,7 +5,7 @@ import { Line } from 'react-chartjs-2';
 import { Chart, defaults } from 'chart.js/auto';
 import { cn } from '@utils/cn';
 import { CurrencyRateResponse } from '@query/useCurrencyGet';
-import { lime, gray } from '@constant/color';
+import { green, gray } from '@constant/color';
 
 Chart.register(CategoryScale);
 
@@ -39,25 +39,26 @@ const CurrencyChart = ({
       {
         data: values,
         fill: 'start',
-        borderColor: lime['500'],
-        borderWidth: 1,
+        borderColor: green['500'],
+        borderWidth: 2,
         pointRadius: 0,
-        pointBackgroundColor: lime['400'],
-        backgroundColor: (context: ScriptableContext<'line'>) => {
-          const chart = context.chart;
-          const { ctx, chartArea } = chart;
-          if (!chartArea) return undefined;
+        pointBackgroundColor: green['400'],
+        backgroundColor: 'white',
+        // backgroundColor: (context: ScriptableContext<'line'>) => {
+        //   const chart = context.chart;
+        //   const { ctx, chartArea } = chart;
+        //   if (!chartArea) return undefined;
 
-          const gradient = ctx.createLinearGradient(
-            0,
-            chartArea.top,
-            0,
-            chartArea.bottom,
-          );
-          gradient.addColorStop(0, lime['400'] + '80');
-          gradient.addColorStop(1, lime['400'] + '00');
-          return gradient;
-        },
+        //   const gradient = ctx.createLinearGradient(
+        //     0,
+        //     chartArea.top,
+        //     0,
+        //     chartArea.bottom,
+        //   );
+        //   gradient.addColorStop(0, lime['400'] + '80');
+        //   gradient.addColorStop(1, lime['400'] + '00');
+        //   return gradient;
+        // },
       },
     ],
   };
