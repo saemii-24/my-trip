@@ -1,16 +1,6 @@
 'use client';
-import CountryLocationMap from '@components/CountryLocationMap';
-import CurrencyChart from '@components/CurrencyChart';
-import Aeroplane1 from '@components/icon/Aeroplane1';
-import MapMarker5 from '@components/icon/MapMarker5';
-import ThumbsUp3 from '@components/icon/ThumbsUp3';
-import Image from 'next/image';
-import RightSection from './_components/RightSection';
-import useCurrencyGet from '@query/useCurrencyGet';
-import { cn } from '@utils/cn';
-import ChevronLeft from '@components/icon/ChevronLeft';
-import ChevronRight from '@components/icon/ChevronRight';
 import dynamic from 'next/dynamic';
+import BasicInfo from '@components/information/BasicInfo';
 const MainPicture = dynamic(() => import('@components/information/MainPicture'), {
   loading: () => <p>Loading...</p>,
 });
@@ -18,9 +8,10 @@ const MainPicture = dynamic(() => import('@components/information/MainPicture'),
 export default function InformationPage() {
   return (
     <div className='w-full'>
-      <div className='mt-[100px] mx-auto w-fit'>
+      <div className=' mx-auto w-fit'>
         <MainPicture />
       </div>
+      <BasicInfo />
       {/* <h1 className='text-3xl'>대만 · 타이페이</h1>
       <div className='mt-[100px] w-[calc(100vw-32px)] h-[calc(100vh-120px)] rounded-2xl overflow-hidden mx-auto relative'>
         <Image
