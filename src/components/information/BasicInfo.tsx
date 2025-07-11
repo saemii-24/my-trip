@@ -2,11 +2,23 @@ import CountryLocationMap from '@components/CountryLocationMap';
 import CurrencyChart from '@components/CurrencyChart';
 import Container from '@components/public/Container';
 import { cn } from '@utils/cn';
-import { BookCheck, Clock, Languages, MapPin, Plug2, Search, Sun } from 'lucide-react';
+import {
+  BookCheck,
+  Clock,
+  Languages,
+  Map,
+  MapPin,
+  Pin,
+  Plug2,
+  Search,
+  Sun,
+  TicketsPlane,
+} from 'lucide-react';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import Currency from './Currency';
 import { SectionTitle } from '@components/public/SectionTitle';
+import TourSpot from '@components/public/TourSpot';
 
 export default function BasicInfo() {
   return (
@@ -96,7 +108,7 @@ export default function BasicInfo() {
                 </p>
               </div>
             </BaiscInfoBox>
-            <BaiscInfoBox className='col-span-2 aspect-auto bg-white border border-gray-100'>
+            <BaiscInfoBox className=' aspect-auto bg-white border border-gray-100'>
               <Image
                 src='https://images.unsplash.com/photo-1697623155235-2e209f081d4b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
                 alt='Taipei city view'
@@ -104,12 +116,26 @@ export default function BasicInfo() {
                 style={{ objectFit: 'cover' }}
                 priority
               />
+            </BaiscInfoBox>{' '}
+            <BaiscInfoBox className='w-full aspect-square bg-zinc-100 p-8 flex flex-col'>
+              <div className='size-[84px] rounded-full bg-white flex-center'>
+                <TicketsPlane className='text-gray-900' size={48} />
+              </div>
+              <div className='mt-auto'>
+                <h2 className='text-5xl font-semibold'>비행 시간</h2>
+                <p className='break-keep text-lg mt-2 text-gray-700'>
+                  직항 기준 2시간 30분이 소요됩니다.
+                </p>
+              </div>
             </BaiscInfoBox>
           </div>
         </Container>
       </section>
       <section className='bg-zinc-100 mt-150 py-150'>
         <Currency />
+      </section>
+      <section className=' py-150'>
+        <TourSpot />
       </section>
     </>
   );

@@ -273,6 +273,7 @@ const CurrencyChart = ({ currencyRateData, className }: CurrencyChartProps) => {
 
       {/* Chart */}
       <div className='flex-1 min-w-0 h-[300px]'>
+        {/* @ts-ignore */}
         <Line data={data} options={options} />
       </div>
     </div>

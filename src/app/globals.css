@@ -17,6 +17,7 @@
 body {
   font-family: var(--font-suit), sans-serif;
   @apply text-gray-900;
+  scroll-behavior: smooth;
 }
 
 .comp-border {
