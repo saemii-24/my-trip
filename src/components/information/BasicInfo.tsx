@@ -6,33 +6,29 @@ import { BookCheck, Clock, Languages, MapPin, Plug2, Search, Sun } from 'lucide-
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import Currency from './Currency';
+import { SectionTitle } from '@components/public/SectionTitle';
 
 export default function BasicInfo() {
   return (
     <>
       <section className=' py-150 '>
         <Container>
-          <h1 className='text-4xl md:text-6xl font-bold mb-4 max-w-[55%] !leading-[130%] text-start'>
-            <MapPin className='size-[62px] translate-y-[-8px] text-green-500 inline-block' />
-            <span className='ml-4'>대만 · 타이페이</span>
-          </h1>
+          <SectionTitle icon={<MapPin />}>대만 · 타이페이</SectionTitle>
+
           {/* Left featured article (takes 2 cols on md+) */}
-          <div className=''>
+          {/* <div className=''>
             <CountryLocationMap
               lat={23.6987}
               lng={120.9605}
               zoom={7}
               className='h-[60vh] rounded-60 overflow-hidden'
             />
-          </div>
+          </div> */}
         </Container>
       </section>
       <section className=''>
         <Container>
-          <h1 className='text-4xl md:text-6xl font-bold mb-4 max-w-[55%] !leading-[130%] text-start'>
-            <Search className='size-[62px] translate-y-[-8px] text-green-500 inline-block' />
-            <span className='ml-4'>여행지 기본정보</span>
-          </h1>
+          <SectionTitle icon={<Search />}>여행지 기본정보</SectionTitle>
           <div className='grid grid-cols-4 gap-8 '>
             <BaiscInfoBox>
               <Image
@@ -112,7 +108,9 @@ export default function BasicInfo() {
           </div>
         </Container>
       </section>
-      <section className='bg-[#F6FAF1] mt-150 py-150'></section>
+      <section className='bg-zinc-100 mt-150 py-150'>
+        <Currency />
+      </section>
     </>
   );
 }

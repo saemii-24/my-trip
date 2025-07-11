@@ -1,8 +1,10 @@
 import CurrencyChart from '@components/CurrencyChart';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, CircleDollarSign } from 'lucide-react';
 import RightSection from '../../app/(layout)/information/_components/RightSection';
 import useCurrencyGet from '@query/useCurrencyGet';
 import { cn } from '@utils/cn';
+import Container from '@components/public/Container';
+import { SectionTitle } from '@components/public/SectionTitle';
 
 export default function Currency() {
   const callCurrencyCode = 'TWD';
@@ -17,13 +19,16 @@ export default function Currency() {
   const isUp = diff > 0;
 
   return (
-    <div className=''>
-      <CurrencyChart
-        currencyRateData={currencyRateData || undefined}
-        showAxisLabels={false}
-        showAxisLines={false}
-        className='h-[200px] w-full '
-      />
-    </div>
+    <Container className=''>
+      <SectionTitle icon={<CircleDollarSign />}>환율 정보</SectionTitle>
+      <div className='bg-white py-[100px] px-20 rounded-60'>
+        <CurrencyChart
+          currencyRateData={currencyRateData || undefined}
+          showAxisLabels={false}
+          showAxisLines={false}
+          className=' w-full '
+        />
+      </div>
+    </Container>
   );
 }

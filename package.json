@@ -32,6 +32,7 @@
     "@types/jest": "^29.5.14",
     "@vis.gl/react-google-maps": "^1.5.2",
     "chart.js": "^4.5.0",
+    "chartjs-plugin-annotation": "^3.1.0",
     "cheerio": "^1.1.0",
     "clsx": "^2.1.1",
     "crypto-random-string": "^5.0.0",
