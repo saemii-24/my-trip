@@ -86,7 +86,9 @@ const TourSpot = () => {
             ref={sightSeeingRef}
             className='bg-green-50 min-h-[1000px]'
           >
-            <SpotCard />
+            <div className='w-full grid grid-cols-3 gap-10'>
+              {googlePlaceData.sightseeing?.map((item) => <SpotCard placeData={item} />)}
+            </div>
           </article>
           <article
             id='food'

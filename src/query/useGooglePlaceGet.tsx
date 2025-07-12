@@ -2,9 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import { GoogleGenAI } from '@google/genai';
 import { recommendPromptFunc, recommendPromptParsing } from '../prompt/recommend';
 
-type GeminiPlace = { name: string; description: string };
+export type GeminiPlace = { name: string; description: string };
 
-type GooglePlaceData = GeminiPlace & {
+export type GooglePlaceData = GeminiPlace & {
   address: string;
   rating: number | null;
   photoUrl: string | null;
@@ -13,7 +13,7 @@ type GooglePlaceData = GeminiPlace & {
   googleMapsUrl: string | null;
 };
 
-type EnrichedRecommendation = {
+export type GeminiPlaceRecommendation = {
   sightseeing: GooglePlaceData[];
   food: GooglePlaceData[];
   shopping: GooglePlaceData[];
@@ -73,7 +73,7 @@ const fetchGooglePlaceDetail = async (
 };
 
 export const useGooglePlaceGet = (country: string, city: string) => {
-  const queryResult = useQuery<EnrichedRecommendation, Error>({
+  const queryResult = useQuery<GeminiPlaceRecommendation, Error>({
     queryKey: ['tour-data', country, city],
     enabled: !!country && !!city,
     queryFn: async () => {
