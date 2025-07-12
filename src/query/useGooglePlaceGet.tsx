@@ -4,27 +4,28 @@ import { recommendPromptFunc, recommendPromptParsing } from '../prompt/recommend
 
 type GeminiPlace = { name: string; description: string };
 
-type EnrichedPlace = GeminiPlace & {
+type GooglePlaceData = GeminiPlace & {
   address: string;
   rating: number | null;
   photoUrl: string | null;
   lat: number | null;
   lng: number | null;
+  googleMapsUrl: string | null;
 };
 
 type EnrichedRecommendation = {
-  sightseeing: EnrichedPlace[];
-  food: EnrichedPlace[];
-  shopping: EnrichedPlace[];
+  sightseeing: GooglePlaceData[];
+  food: GooglePlaceData[];
+  shopping: GooglePlaceData[];
 };
 
 const fetchGooglePlaceDetail = async (
   query: string,
   city: string,
-): Promise<Partial<EnrichedPlace>> => {
+): Promise<Partial<GooglePlaceData>> => {
   const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API!;
   const fields = [
-    'places.googleMapsLinks',
+    'places.googleMapsUri',
     'places.displayName',
     'places.businessStatus',
     'places.formattedAddress',
@@ -67,6 +68,7 @@ const fetchGooglePlaceDetail = async (
     photoUrl,
     lat: place.location?.latitude ?? null,
     lng: place.location?.longitude ?? null,
+    googleMapsUrl: place.googleMapsUri ?? null, // ✅ 이거 포함!
   };
 };
 
@@ -88,7 +90,7 @@ export const useGooglePlaceGet = (country: string, city: string) => {
       const rawText = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
       const parsed = recommendPromptParsing(rawText);
 
-      const addInfoToGemini = async (list: GeminiPlace[]): Promise<EnrichedPlace[]> =>
+      const addInfoToGemini = async (list: GeminiPlace[]): Promise<GooglePlaceData[]> =>
         await Promise.all(
           list.map(async (place) => {
             const extra = await fetchGooglePlaceDetail(place.name, city);
@@ -100,6 +102,7 @@ export const useGooglePlaceGet = (country: string, city: string) => {
               photoUrl: extra.photoUrl ?? null,
               lat: extra.lat ?? null,
               lng: extra.lng ?? null,
+              googleMapsUrl: extra.googleMapsUrl ?? null,
             };
           }),
         );
