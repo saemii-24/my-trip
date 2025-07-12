@@ -1,20 +1,13 @@
-'use client';
-
 import { useQuery } from '@tanstack/react-query';
 import { GoogleGenAI } from '@google/genai';
-import { itineraryPromptParsing } from '../prompt/itinerary';
-
-interface GeminiResponse {
-  title: string;
-  content: string;
-}
 
 const ai = new GoogleGenAI({
   apiKey: process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API!,
 });
 
-export function useGeminiGet(prompt: string) {
-  const geminiGet = useQuery<GeminiResponse, Error>({
+// 파싱 함수 타입 명시
+export function useGeminiGet<T>(prompt: string, parseFn: (rawText: string) => T) {
+  const geminiGet = useQuery<T, Error>({
     queryKey: ['gemini', prompt],
     queryFn: async () => {
       if (!prompt) throw new Error('No prompt');
@@ -25,20 +18,8 @@ export function useGeminiGet(prompt: string) {
       });
 
       const rawText = response.candidates?.[0]?.content?.parts?.[0]?.text || '';
-      console.log(rawText);
 
-      // console.log(itineraryPromptParsing(rawText));
-
-      // return itineraryPromptParsing(rawText);
-
-      //title과 content로 파싱한다.
-      const titleMatch = rawText.match(/Title:\s*(.+)/);
-      const contentMatch = rawText.match(/Content:\s*([\s\S]+)/);
-
-      return {
-        title: titleMatch?.[1]?.trim() || '',
-        content: contentMatch?.[1]?.trim() || '',
-      };
+      return parseFn(rawText); // ✅ 전달받은 함수로 파싱
     },
     enabled: !!prompt && !!process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API,
     retry: 0,

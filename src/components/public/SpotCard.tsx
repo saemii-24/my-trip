@@ -27,12 +27,14 @@ const SpotCard = () => {
       </div>
       <div className='flex flex-col mt-2 gap-1 px-3'>
         <div className='mt-1 text-2xl font-bold'>타이페이 101타워</div>
-        <p>
-          <MapPin className={'fill-gray-800 text-white'} />
-        </p>
+
         <p className='text-lg'>
           타이페이 101은 2004년 완공 당시 세계 최고층이었던 대만의 대표 랜드마크로, 지금도
           타이베이를 상징하는 초고층 빌딩이다.
+        </p>
+        <p className='flex gap-1 text-gray-500 text-sm'>
+          <MapPin className={'fill-gray-500 text-white'} scale={10} />
+          <span>110 대만 Taipei City, Xinyi District, Section 5, Xinyi Rd, 7號89樓</span>
         </p>
       </div>
     </div>

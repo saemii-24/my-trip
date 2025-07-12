@@ -3,17 +3,23 @@ import Container from './Container';
 import { SectionTitle } from './SectionTitle';
 import { Map, MapPinned, Store, Utensils } from 'lucide-react';
 import SpotCard from './SpotCard';
+import { useGeminiGet } from '@query/useGeminiGet';
+import { recommendPromptFunc, recommendPromptParsing } from '../../prompt/recommend';
+import { useGooglePlaceGet } from '@query/useGooglePlaceGet';
 
 const anchorItems = [
-  { icon: <MapPinned size={28} />, href: '#hotspot', label: 'hotspot' },
+  { icon: <MapPinned size={28} />, href: '#sightSeeing', label: 'sightSeeing' },
   { icon: <Utensils size={28} />, href: '#food', label: 'food' },
   { icon: <Store size={28} />, href: '#shopping', label: 'shopping' },
 ];
 
 const TourSpot = () => {
-  const [activeSection, setActiveSection] = useState<string>('hotspot');
+  const [activeSection, setActiveSection] = useState<string>('sightSeeing');
 
-  const hotspotRef = useRef<HTMLElement>(null);
+  const { googlePlaceData, googlePlaceIsLoading } = useGooglePlaceGet('대만', '타이페이');
+
+  console.log(googlePlaceData);
+  const sightSeeingRef = useRef<HTMLElement>(null);
   const foodRef = useRef<HTMLElement>(null);
   const shoppingRef = useRef<HTMLElement>(null);
 
@@ -33,11 +39,14 @@ const TourSpot = () => {
       },
     );
 
-    const sections = [hotspotRef, foodRef, shoppingRef];
+    const sections = [sightSeeingRef, foodRef, shoppingRef];
     sections.forEach((ref) => ref.current && observer.observe(ref.current));
 
     return () => observer.disconnect();
   }, []);
+
+  if (googlePlaceIsLoading) return <div>데이터를 받아옵니다.</div>;
+  if (!googlePlaceData) return <div>데이터가 없습니다.</div>;
 
   return (
     <Container className=''>
@@ -72,7 +81,11 @@ const TourSpot = () => {
           })}
         </div>
         <section className='flex flex-col flex-1 bg-zinc-100'>
-          <article id='hotspot' ref={hotspotRef} className='bg-green-50 min-h-[1000px]'>
+          <article
+            id='sightSeeing'
+            ref={sightSeeingRef}
+            className='bg-green-50 min-h-[1000px]'
+          >
             <SpotCard />
           </article>
           <article
