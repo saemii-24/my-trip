@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Container from './Container';
 import { SectionTitle } from './SectionTitle';
 import { Map, MapPinned, Store, Utensils } from 'lucide-react';
+import SpotCard from './SpotCard';
 
 const anchorItems = [
   { icon: <MapPinned size={28} />, href: '#hotspot', label: 'hotspot' },
@@ -71,11 +72,9 @@ const TourSpot = () => {
           })}
         </div>
         <section className='flex flex-col flex-1 bg-zinc-100'>
-          <article
-            id='hotspot'
-            ref={hotspotRef}
-            className='bg-green-50 min-h-[1000px]'
-          ></article>
+          <article id='hotspot' ref={hotspotRef} className='bg-green-50 min-h-[1000px]'>
+            <SpotCard />
+          </article>
           <article
             id='food'
             ref={foodRef}
