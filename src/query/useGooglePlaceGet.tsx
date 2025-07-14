@@ -2,7 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { GoogleGenAI } from '@google/genai';
 import { recommendPromptFunc, recommendPromptParsing } from '../prompt/recommend';
 
-export type GeminiPlace = { name: string; description: string };
+export type GeminiPlace = {
+  name: string;
+  description: string;
+};
 
 export type GooglePlaceData = GeminiPlace & {
   address: string;
@@ -13,10 +16,15 @@ export type GooglePlaceData = GeminiPlace & {
   googleMapsUrl: string | null;
 };
 
+export type GooglePlaceCategory = {
+  criteria: string;
+  places: GooglePlaceData[];
+};
+
 export type GeminiPlaceRecommendation = {
-  sightseeing: GooglePlaceData[];
-  food: GooglePlaceData[];
-  shopping: GooglePlaceData[];
+  sightseeing: GooglePlaceCategory;
+  food: GooglePlaceCategory;
+  shopping: GooglePlaceCategory;
 };
 
 const fetchGooglePlaceDetail = async (
@@ -68,7 +76,7 @@ const fetchGooglePlaceDetail = async (
     photoUrl,
     lat: place.location?.latitude ?? null,
     lng: place.location?.longitude ?? null,
-    googleMapsUrl: place.googleMapsUri ?? null, // ✅ 이거 포함!
+    googleMapsUrl: place.googleMapsUri ?? null,
   };
 };
 
@@ -107,13 +115,26 @@ export const useGooglePlaceGet = (country: string, city: string) => {
           }),
         );
 
-      const [sightseeing, food, shopping] = await Promise.all([
-        addInfoToGemini(parsed.sightseeing),
-        addInfoToGemini(parsed.food),
-        addInfoToGemini(parsed.shopping),
+      const [sightseeingPlaces, foodPlaces, shoppingPlaces] = await Promise.all([
+        addInfoToGemini(parsed.sightseeing.places),
+        addInfoToGemini(parsed.food.places),
+        addInfoToGemini(parsed.shopping.places),
       ]);
 
-      return { sightseeing, food, shopping };
+      return {
+        sightseeing: {
+          criteria: parsed.sightseeing.criteria,
+          places: sightseeingPlaces,
+        },
+        food: {
+          criteria: parsed.food.criteria,
+          places: foodPlaces,
+        },
+        shopping: {
+          criteria: parsed.shopping.criteria,
+          places: shoppingPlaces,
+        },
+      };
     },
     retry: 0,
   });

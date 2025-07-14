@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-suit: 'SUIT Variable', sans-serif;
-  --font-pretendard: 'Pretendard Variable', sans-serif;
-}
-
 .font-pretendard {
   font-family: var(--font-pretendard), sans-serif;
 }
@@ -17,7 +12,6 @@
 body {
   font-family: var(--font-suit), sans-serif;
   @apply text-gray-900;
-  scroll-behavior: smooth;
 }
 
 .comp-border {
