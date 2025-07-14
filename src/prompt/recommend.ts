@@ -7,37 +7,48 @@ export function recommendPromptFunc(country: string, city: string) {
 추천해야 할 장소는 다음과 같이 3가지 분류로 나뉩니다:
 
 1. 관광 명소 (6곳)
-2. 음식점 또는 카페, 레스토랑 (3곳)
-3. 쇼핑 장소 (3곳)
+2. 음식점 또는 카페, 레스토랑 (6곳)
+3. ${country}와 ${city}의 특색이 있는 쇼핑 장소 (3곳)
 
-각 항목은 장소 이름과 간단한 설명을 포함해 주세요.
-설명은 1~2문장 분량으로 해당 장소의 특징이나 추천 이유를 알려 주세요.
+각 분류는 아래의 정보를 포함해야 합니다:
 
-다음과 같은 JSON 형식으로 출력해 주세요. 
-이떄 반드시 설명 없이 JSON만 출력하도록 합니다.
+- "criteria": 장소를 선정한 기준 (1문장)
+- "places": 장소 이름과 간단한 설명 (각 1~2문장)
+
+출력은 아래 JSON 형식을 따라 주세요.  
+※ JSON 이외의 다른 출력(설명, 마크다운 등)은 절대 포함하지 마세요.
 
 {
-  "sightseeing": [
-    {
-      "name": "장소 이름",
-      "description": "간단한 설명"
-    },
-    ...
-  ],
-  "food": [
-    {
-      "name": "음식점 이름",
-      "description": "간단한 설명"
-    },
-    ...
-  ],
-  "shopping": [
-    {
-      "name": "쇼핑 장소 이름",
-      "description": "간단한 설명"
-    },
-    ...
-  ]
+  "sightseeing": {
+    "criteria": "관광명소 선정 기준에 대한 설명",
+    "places": [
+      {
+        "name": "장소 이름",
+        "description": "간단한 설명"
+      },
+      ...
+    ]
+  },
+  "food": {
+    "criteria": "음식점 선정 기준에 대한 설명",
+    "places": [
+      {
+        "name": "음식점 이름",
+        "description": "간단한 설명"
+      },
+      ...
+    ]
+  },
+  "shopping": {
+    "criteria": "쇼핑 장소 선정 기준에 대한 설명",
+    "places": [
+      {
+        "name": "쇼핑 장소 이름",
+        "description": "간단한 설명"
+      },
+      ...
+    ]
+  }
 }
 
 ※ 모든 항목은 문자열로 작성해 주세요.
@@ -56,6 +67,7 @@ export function recommendPromptParsing(rawText: string): any | null {
     const jsonTextOnly = rawText.replace(/```json|```/g, '').trim();
 
     const recommendObject = JSON.parse(jsonTextOnly);
+    console.log(recommendObject);
 
     return recommendObject;
   } catch (error) {
