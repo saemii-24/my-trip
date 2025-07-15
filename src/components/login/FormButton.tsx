@@ -6,7 +6,7 @@ interface FormButtonProps extends HTMLAttributes<HTMLButtonElement> {
   className?: string;
 }
 
-const FormButton = ({ children, className }: FormButtonProps) => {
+const FormButton = ({ children, className, ...props }: FormButtonProps) => {
   return (
     <button
       type='submit'
@@ -14,6 +14,7 @@ const FormButton = ({ children, className }: FormButtonProps) => {
         'w-full h-[50px] bg-green-500 text-white rounded-2xl font-semibold text-md',
         className,
       )}
+      {...props}
     >
       {children}
     </button>
