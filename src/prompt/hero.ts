@@ -18,10 +18,36 @@ export default function heroPromptFunc({ country, description }: HeroPromptType)
 2. 형식은 아래처럼 써 주세요. 하이픈(-) 없이 깔끔하게!
 이때 Content가 두 문장이라면 문장이 끝나는 지점에서 줄바꿈 처리(\n) 해주세요.
 
-Title: [짧고 시적인 한 문장, 부드러운 말투로]
-Content: [감성적인 설명문 한두 문장, 따뜻하고 자연스러운 말투로]
+3. JSON 형태로 출력해주세요.
+
+출력은 아래 예시처럼 object로 구성해 주세요.
+
+{
+  title: [짧고 시적인 한 문장, 부드러운 말투로]
+  content: [감성적인 설명문 한두 문장, 따뜻하고 자연스러운 말투로]
+}
 
 반드시 한국어로 작성해 주세요. 다른 말은 하지 말고 위 형식 그대로 응답해 주세요.
 `;
   return newPrompt;
+}
+
+export function heroPromptParsing(rawText: string): any | null {
+  try {
+    if (!rawText || typeof rawText !== 'string') {
+      console.error('해석할 수 없는 형식입니다.');
+      return null;
+    }
+
+    const jsonTextOnly = rawText.replace(/```json|```/g, '').trim();
+    console.log(jsonTextOnly);
+
+    const heroObject = JSON.parse(jsonTextOnly);
+    console.log(heroObject);
+
+    return heroObject;
+  } catch (error) {
+    console.error('JSON 파싱 실패:', error);
+    return null;
+  }
 }

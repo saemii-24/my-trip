@@ -5,7 +5,7 @@ import useUnsplashGet from '../../query/useUnsplashGet';
 import { countryObj } from '@utils/randomImageKeyword';
 import BounceLoading from './BounceLoading';
 import { useGeminiGet } from '../../query/useGeminiGet';
-import heroPromptFunc from '../../prompt/hero';
+import heroPromptFunc, { heroPromptParsing } from '../../prompt/hero';
 import HeroInfo from './HeroInfo';
 import { ChevronRight } from 'lucide-react';
 import Container from './Container';
@@ -18,7 +18,7 @@ const Hero = () => {
 
   //Gemini Prompt
   const [prompt, setPrompt] = useState('');
-  const { geminiData, geminiGetIsLoading } = useGeminiGet(prompt);
+  const { geminiData, geminiGetIsLoading } = useGeminiGet(prompt, heroPromptParsing);
 
   useEffect(() => {
     if (unsplashData?.description) {
