@@ -20,6 +20,8 @@ export default function CityAutoComplete({
   const [selected, setSelected] = useState<string | null>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  console.log('country:', country);
+
   const filteredCities = (() => {
     const lowerQuery = query.toLowerCase();
 
@@ -79,12 +81,12 @@ export default function CityAutoComplete({
                 key={index}
                 onClick={() => handleSelect(city)}
                 className={cn(
-                  'px-4 py-2 cursor-pointer flex items-center gap-2',
-                  isFocused ? 'bg-lime-200' : 'hover:bg-lime-100',
+                  'px-4 py-4 cursor-pointer flex items-center gap-4',
+                  isFocused ? 'bg-green-100' : 'hover:bg-green-50',
                 )}
               >
-                <Image src={country.flag} alt='국기' width={36} height={36} />
-                <span>{city}</span>
+                <Image src={country.flag} alt='국기' width={40} height={36} />
+                <span className='text-xl'>{city}</span>
               </div>
             );
           })}
@@ -92,17 +94,10 @@ export default function CityAutoComplete({
       )}
 
       {isOpen && filteredCities.length === 0 && (
-        <div className='absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-sm px-4 py-2 text-gray-500'>
+        <div className='absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-sm px-4 py-4 text-gray-500 text-2xl'>
           일치하는 도시가 없습니다.
         </div>
       )}
-
-      <button
-        type='button'
-        className='size-10 rounded-full flex-center bg-lime-400 absolute right-0 bottom-2 hover:bg-lime-500 transition'
-      >
-        <ArrowRight className='text-white size-5' />
-      </button>
     </div>
   );
 }

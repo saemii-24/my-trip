@@ -1,3 +1,5 @@
+'use client';
+
 import Github from '@components/icon/Github';
 import Google from '@components/icon/Google';
 import { BasicProps } from '@type/public';
@@ -5,24 +7,36 @@ import { signInWithGithub, signInWithGoogle } from '@utils/authService';
 import React from 'react';
 import FormButton from './FormButton';
 import { cn } from '@utils/cn';
+import { useRouter } from 'next/navigation';
 
 const SocialLoginButton = ({ className }: BasicProps) => {
+  const router = useRouter();
   const handleGoogleLogin = async () => {
+    console.log('클릭함');
     try {
       const { user, token } = await signInWithGoogle();
-      console.log('Logged in as:', user.displayName);
-      // TODO: 페이지로 redirect
+      router.push('/');
     } catch (err: any) {
-      alert('Google login failed: ' + err.message);
+      if (err.code === 'auth/account-exists-with-different-credential') {
+        const email = err.customData?.email;
+        alert(`'${email}' 계정은 이미 가입되어 있어요.`);
+      } else {
+        alert('Github login failed: ' + err.message);
+      }
     }
   };
   const handleGithubLogin = async () => {
     try {
       const { user, token } = await signInWithGithub();
-      console.log('Logged in as:', user.displayName);
+      router.push('/');
       // TODO: 페이지로 redirect
     } catch (err: any) {
-      alert('Google login failed: ' + err.message);
+      if (err.code === 'auth/account-exists-with-different-credential') {
+        const email = err.customData?.email;
+        alert(`'${email}' 계정은 이미 가입되어 있어요.`);
+      } else {
+        alert('Github login failed: ' + err.message);
+      }
     }
   };
 
