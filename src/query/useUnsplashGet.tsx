@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import { UnsplashResponseType } from '../types/unsplashResponseType';
+import { UnsplashResponseType } from '../type/unsplashResponseType';
 
 const useUnsplashGet = (country: string) => {
   const unsplashGet = useQuery<UnsplashResponseType, Error>({
-    queryKey: ['unsplash'],
+    queryKey: ['unsplash', country],
     queryFn: async () => {
+      console.log('실행여부');
+      console.log(process.env.NEXT_PUBLIC_UNSPLASH_API);
       if (!process.env.NEXT_PUBLIC_UNSPLASH_API) {
         throw new Error('Missing Unsplash API Key');
       }

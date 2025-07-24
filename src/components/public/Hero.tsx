@@ -9,18 +9,21 @@ import { useGeminiGet } from '../../query/useGeminiPost';
 const Hero = () => {
   const { unsplashData, unsplashIsLoading } = useUnsplashGet(country);
 
-  const [prompt, setPrompt] = useState('');
+  console.log(unsplashData);
+  console.log('UNSPLASH API KEY:', process.env.NEXT_PUBLIC_UNSPLASH_API);
 
-  useEffect(() => {
-    if (unsplashData?.description) {
-      const newPrompt = `${unsplashData.description}에 관한 이미지야. 이 이미지를 설명할 수 있는 Title과 Content를 각각 JSON형태로 보내줘`;
-      setPrompt(newPrompt);
-    }
-  }, [unsplashData]);
+  // const [prompt, setPrompt] = useState('');
 
-  const { geminiData, geminiGetIsLoading } = useGeminiGet(prompt);
+  // useEffect(() => {
+  //   if (unsplashData?.description) {
+  //     const newPrompt = `${unsplashData.description}에 관한 이미지야. 이 이미지를 설명할 수 있는 Title과 Content를 각각 JSON형태로 보내줘`;
+  //     setPrompt(newPrompt);
+  //   }
+  // }, [unsplashData]);
 
-  console.log(geminiData);
+  // const { geminiData, geminiGetIsLoading } = useGeminiGet(prompt);
+
+  // console.log(geminiData);
 
   if (unsplashIsLoading) {
     return <BounceLoading />;

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: '함께하는 너와 나의 여행, my-trip',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang='ko' className={`${pretendard.variable} ${suit.variable} `}>
       <body>

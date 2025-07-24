@@ -8,7 +8,7 @@ interface GeminiResponse {
 }
 
 const ai = new GoogleGenAI({
-  apiKey: process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API!,
+  apiKey: process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API,
 });
 
 export function useGeminiGet(prompt: string) {
