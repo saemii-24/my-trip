@@ -1,3 +1,4 @@
+// src/mocks/handlers.ts
 import { http, HttpResponse } from 'msw';
 
 // Mock 데이터 - 실제 API 응답 구조에 맞춤
@@ -84,42 +85,61 @@ const mockNoticeItems = [
 
 export const handlers = [
   // 실제 API 엔드포인트와 응답 구조에 맞춤
-  http.get('/api/notice', ({ request }) => {
-    const url = new URL(request.url);
-    const pageNo = parseInt(url.searchParams.get('pageNo') || '1');
-    const numOfRows = parseInt(url.searchParams.get('numOfRows') || '10');
+  http.get(
+    'https://apis.data.go.kr/1262000/NoticeService2/getNoticeList2',
+    ({ request }) => {
+      try {
+        console.log('mocking 실행중');
+        const url = new URL(request.url);
+        const pageNo = parseInt(url.searchParams.get('pageNo') || '1');
+        const numOfRows = parseInt(url.searchParams.get('numOfRows') || '10');
 
-    console.log(`MSW: /api/notice 호출 - pageNo: ${pageNo}, numOfRows: ${numOfRows}`);
+        console.log(`📋 MSW: 파라미터 - pageNo: ${pageNo}, numOfRows: ${numOfRows}`);
 
-    // 페이징 처리
-    const startIndex = (pageNo - 1) * numOfRows;
-    const endIndex = startIndex + numOfRows;
-    const paginatedItems = mockNoticeItems.slice(startIndex, endIndex);
+        // 페이징 처리
+        const startIndex = (pageNo - 1) * numOfRows;
+        const endIndex = startIndex + numOfRows;
+        const paginatedItems = mockNoticeItems.slice(startIndex, endIndex);
 
-    // 실제 API 응답 구조에 맞춤
-    const responseData = {
-      response: {
-        header: {
-          resultCode: '00',
-          resultMsg: 'NORMAL SERVICE.',
-        },
-        body: {
-          dataType: 'XML',
-          items: {
-            item: paginatedItems,
+        console.log(`📊 MSW: 반환할 데이터 개수: ${paginatedItems.length}`);
+
+        // 실제 API 응답 구조에 맞춤
+        const responseData = {
+          response: {
+            header: {
+              resultCode: '00',
+              resultMsg: 'NORMAL SERVICE.',
+            },
+            body: {
+              dataType: 'XML',
+              items: {
+                item: paginatedItems,
+              },
+              numOfRows: numOfRows,
+              pageNo: pageNo,
+              totalCount: mockNoticeItems.length,
+            },
           },
-          numOfRows: numOfRows,
-          pageNo: pageNo,
-          totalCount: mockNoticeItems.length,
-        },
-      },
-    };
+        };
 
-    return HttpResponse.json(responseData);
-  }),
+        console.log('✅ MSW: 응답 데이터 준비 완료', responseData);
+        return HttpResponse.json(responseData);
+      } catch (error) {
+        console.error('❌ MSW: handler에서 에러 발생:', error);
+
+        // 타입 가드로 안전하게 처리
+        const errorMessage = error instanceof Error ? error.message : '알 수 없는 에러';
+
+        return HttpResponse.json(
+          { error: 'MSW handler error', details: errorMessage },
+          { status: 500 },
+        );
+      }
+    },
+  ),
 
   // 에러 시나리오 테스트용
-  http.get('/api/notice/error', () => {
+  http.get('https://apis.data.go.kr/1262000/NoticeService2/getNoticeList2/error', () => {
     console.log('MSW: 에러 응답 시뮬레이션');
     return HttpResponse.json(
       {
@@ -135,63 +155,69 @@ export const handlers = [
   }),
 
   // 빈 데이터 시나리오 테스트용
-  http.get('/api/notice/empty', ({ request }) => {
-    const url = new URL(request.url);
-    const pageNo = parseInt(url.searchParams.get('pageNo') || '1');
-    const numOfRows = parseInt(url.searchParams.get('numOfRows') || '10');
+  http.get(
+    'https://apis.data.go.kr/1262000/NoticeService2/getNoticeList2/empty',
+    ({ request }) => {
+      const url = new URL(request.url);
+      const pageNo = parseInt(url.searchParams.get('pageNo') || '1');
+      const numOfRows = parseInt(url.searchParams.get('numOfRows') || '10');
 
-    console.log('MSW: 빈 데이터 응답 시뮬레이션');
+      console.log('MSW: 빈 데이터 응답 시뮬레이션');
 
-    return HttpResponse.json({
-      response: {
-        header: {
-          resultCode: '00',
-          resultMsg: 'NORMAL SERVICE.',
-        },
-        body: {
-          dataType: 'XML',
-          items: {
-            item: [],
+      return HttpResponse.json({
+        response: {
+          header: {
+            resultCode: '00',
+            resultMsg: 'NORMAL SERVICE.',
           },
-          numOfRows: numOfRows,
-          pageNo: pageNo,
-          totalCount: 0,
+          body: {
+            dataType: 'XML',
+            items: {
+              item: [],
+            },
+            numOfRows: numOfRows,
+            pageNo: pageNo,
+            totalCount: 0,
+          },
         },
-      },
-    });
-  }),
+      });
+    },
+  ),
 
   // 로딩 지연 테스트용
-  http.get('/api/notice/slow', async ({ request }) => {
-    const url = new URL(request.url);
-    const pageNo = parseInt(url.searchParams.get('pageNo') || '1');
-    const numOfRows = parseInt(url.searchParams.get('numOfRows') || '10');
+  http.get(
+    'https://apis.data.go.kr/1262000/NoticeService2/getNoticeList2/slow',
+    async ({ request }) => {
+      const url = new URL(request.url);
+      const pageNo = parseInt(url.searchParams.get('pageNo') || '1');
+      const numOfRows = parseInt(url.searchParams.get('numOfRows') || '10');
 
-    console.log('MSW: 느린 응답 시뮬레이션 (2초 지연)');
+      console.log('MSW: 느린 응답 시뮬레이션 (2초 지연)');
 
-    // 2초 지연
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+      // 2초 지연
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    const startIndex = (pageNo - 1) * numOfRows;
-    const endIndex = startIndex + numOfRows;
-    const paginatedItems = mockNoticeItems.slice(startIndex, endIndex);
+      const startIndex = (pageNo - 1) * numOfRows;
+      const endIndex = startIndex + numOfRows;
+      const paginatedItems = mockNoticeItems.slice(startIndex, endIndex);
 
-    return HttpResponse.json({
-      response: {
-        header: {
-          resultCode: '00',
-          resultMsg: 'NORMAL SERVICE.',
-        },
-        body: {
-          dataType: 'XML',
-          items: {
-            item: paginatedItems,
+      return HttpResponse.json({
+        response: {
+          header: {
+            resultCode: '00',
+            resultMsg: 'NORMAL SERVICE.',
           },
-          numOfRows: numOfRows,
-          pageNo: pageNo,
-          totalCount: mockNoticeItems.length,
+          body: {
+            dataType: 'XML',
+            items: {
+              item: paginatedItems,
+            },
+            numOfRows: numOfRows,
+            pageNo: pageNo,
+            totalCount: mockNoticeItems.length,
+          },
         },
-      },
-    });
-  }),
+      });
+    },
+  ),
 ];

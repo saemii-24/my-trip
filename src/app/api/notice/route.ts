@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
+  // export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   console.log(searchParams);
 
@@ -33,6 +34,8 @@ export async function GET(req: NextRequest) {
 
   try {
     const res = await fetch(fullUrl);
+    console.log('res: ' + res.json());
+
     const data = await res.json();
     return Response.json(data);
   } catch (error) {

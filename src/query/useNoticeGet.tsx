@@ -32,8 +32,10 @@ const useNoticeGet = (page = 1, numOfRows = 10) => {
     queryFn: async () => {
       const url = `/api/notice?pageNo=${page}&numOfRows=${numOfRows}`;
 
-      console.log(url);
+      console.log('🚀 API 요청 시작:', url);
       const response = await fetch(url);
+
+      console.log('📡 응답 상태:', response.status, response.statusText);
 
       if (!response.ok) {
         throw new Error('Failed to fetch notice');
@@ -51,7 +53,7 @@ const useNoticeGet = (page = 1, numOfRows = 10) => {
         totalCount: body.totalCount,
       };
     },
-    retry: 0,
+    retry: 3,
   });
 
   return {
