@@ -6,6 +6,22 @@ const nextConfig = {
   experimental: {
     mdxRs: true,
   },
+  webpack: (config, { isServer, dev }) => {
+    if (isServer && dev && !global.__MSW_STARTED__) {
+      // 동적 import로 안전하게 처리
+      import('./src/mocks/server.js')
+        .then(({ server }) => {
+          console.log('🚀 MSW 서버 시작...');
+          server.listen();
+          global.__MSW_STARTED__ = true;
+          console.log('✅ MSW 서버 시작됨');
+        })
+        .catch((error) => {
+          console.log('⚠️ MSW 파일을 찾을 수 없음:', error.message);
+        });
+    }
+    return config;
+  },
   images: {
     remotePatterns: [
       {

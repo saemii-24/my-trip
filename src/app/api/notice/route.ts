@@ -17,7 +17,6 @@ export async function GET(req: NextRequest) {
   // ✅ 기본값 포함한 파라미터 설정
   const params = new URLSearchParams({
     serviceKey: apiKey,
-    returnType: 'JSON',
     pageNo: '1',
     numOfRows: '10',
   });
@@ -29,14 +28,15 @@ export async function GET(req: NextRequest) {
   if (pageNo) params.set('pageNo', pageNo);
   if (numOfRows) params.set('numOfRows', numOfRows);
 
-  const fullUrl = `${baseUrl}?${params.toString()}`;
-  // console.log(fullUrl);
+  const fullUrl = `${baseUrl}?${params}`;
+  console.log('apiKey: ' + apiKey);
+  console.log('fullUrl: ' + fullUrl);
 
   try {
     const res = await fetch(fullUrl);
-    console.log('res: ' + res.json());
 
     const data = await res.json();
+    console.log('data: ' + data);
     return Response.json(data);
   } catch (error) {
     // ❌ 응답 실패 에러
