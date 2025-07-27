@@ -85,56 +85,53 @@ const mockNoticeItems = [
 
 export const handlers = [
   // 실제 API 엔드포인트와 응답 구조에 맞춤
-  http.get(
-    'https://apis.data.go.kr/1262000/NoticeService2/getNoticeList2',
-    ({ request }) => {
-      try {
-        console.log('mocking 실행중');
-        const url = new URL(request.url);
-        const pageNo = parseInt(url.searchParams.get('pageNo') || '1');
-        const numOfRows = parseInt(url.searchParams.get('numOfRows') || '10');
+  http.get('http://localhost:3000/api/notice', ({ request }) => {
+    try {
+      console.log('mocking 실행중');
+      const url = new URL(request.url);
+      const pageNo = parseInt(url.searchParams.get('pageNo') || '1');
+      const numOfRows = parseInt(url.searchParams.get('numOfRows') || '10');
 
-        console.log(`📋 MSW: 파라미터 - pageNo: ${pageNo}, numOfRows: ${numOfRows}`);
+      console.log(`📋 MSW: 파라미터 - pageNo: ${pageNo}, numOfRows: ${numOfRows}`);
 
-        // 페이징 처리
-        const startIndex = (pageNo - 1) * numOfRows;
-        const endIndex = startIndex + numOfRows;
-        const paginatedItems = mockNoticeItems.slice(startIndex, endIndex);
+      // 페이징 처리
+      const startIndex = (pageNo - 1) * numOfRows;
+      const endIndex = startIndex + numOfRows;
+      const paginatedItems = mockNoticeItems.slice(startIndex, endIndex);
 
-        console.log(`📊 MSW: 반환할 데이터 개수: ${paginatedItems.length}`);
+      console.log(`📊 MSW: 반환할 데이터 개수: ${paginatedItems.length}`);
 
-        // 실제 API 응답 구조에 맞춤
-        const responseData = {
-          response: {
-            header: {
-              resultCode: '00',
-              resultMsg: 'NORMAL SERVICE.',
-            },
-            body: {
-              dataType: 'XML',
-              items: {
-                item: paginatedItems,
-              },
-              numOfRows: numOfRows,
-              pageNo: pageNo,
-              totalCount: mockNoticeItems.length,
-            },
+      // 실제 API 응답 구조에 맞춤
+      const responseData = {
+        response: {
+          header: {
+            resultCode: '00',
+            resultMsg: 'NORMAL SERVICE.',
           },
-        };
+          body: {
+            dataType: 'JSON',
+            items: {
+              item: paginatedItems,
+            },
+            numOfRows: numOfRows,
+            pageNo: pageNo,
+            totalCount: mockNoticeItems.length,
+          },
+        },
+      };
 
-        console.log('✅ MSW: 응답 데이터 준비 완료', responseData);
-        return HttpResponse.json(responseData);
-      } catch (error) {
-        console.error('❌ MSW: handler에서 에러 발생:', error);
+      console.log('✅ MSW: 응답 데이터 준비 완료', responseData);
+      return HttpResponse.json(responseData);
+    } catch (error) {
+      console.error('❌ MSW: handler에서 에러 발생:', error);
 
-        // 타입 가드로 안전하게 처리
-        const errorMessage = error instanceof Error ? error.message : '알 수 없는 에러';
+      // 타입 가드로 안전하게 처리
+      const errorMessage = error instanceof Error ? error.message : '알 수 없는 에러';
 
-        return HttpResponse.json(
-          { error: 'MSW handler error', details: errorMessage },
-          { status: 500 },
-        );
-      }
-    },
-  ),
+      return HttpResponse.json(
+        { error: 'MSW handler error', details: errorMessage },
+        { status: 500 },
+      );
+    }
+  }),
 ];
