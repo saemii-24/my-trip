@@ -1,4 +1,6 @@
 import { server } from './src/mocks/server';
+import '@testing-library/jest-dom';
+import { screen, configure } from '@testing-library/react';
 
 // 모든 테스트 시작 전에 MSW 서버 시작
 beforeAll(() => {

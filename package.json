@@ -112,12 +112,6 @@
       "path": "./node_modules/cz-customizable"
     }
   },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "<rootDir>/setupTests.ts"
-    ],
-    "testEnvironment": "jsdom"
-  },
   "eslintConfig": {
     "extends": [
       "plugin:storybook/recommended"
