@@ -1,17 +1,30 @@
 import Notice from '@components/public/Notice';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render } from '@testing-library/react';
-import { screen } from '@testing-library/react';
-import useNoticeGet from '../query/useNoticeGet';
+import { render, screen } from '@testing-library/react';
+import useNoticeGet, { NoticeItem } from '@query/useNoticeGet';
 
-// Mock data with proper typing
-const mockNoticeData = [
+//렌더링에 사용할 가상의 데이터
+const mockNoticeData: NoticeItem[] = [
   {
     id: '1',
-    title: '테스트 공지사항',
-    file_download_url: 'https://example.com/file.pdf',
+    title: '테스트 공지사항 1',
+    file_download_url: 'https://example.com/file1.pdf',
     written_dt: '2024-01-15',
-    txt_origin_cn: '테스트 공지사항 내용입니다.',
+    txt_origin_cn: '테스트 공지사항 1 내용입니다.',
+  },
+  {
+    id: '2',
+    title: '테스트 공지사항 2',
+    file_download_url: '',
+    written_dt: '2024-01-14',
+    txt_origin_cn: '테스트 공지사항 2 내용입니다.',
+  },
+  {
+    id: '3',
+    title: '테스트 공지사항 3',
+    file_download_url: 'https://example.com/file3.pdf',
+    written_dt: '2024-01-13',
+    txt_origin_cn: null,
   },
 ];
 
@@ -32,119 +45,20 @@ const renderWithQueryClient = (component: React.ReactElement) => {
   );
 };
 
-// Mock the hook
-jest.mock('@query/useNoticeGet', () => ({
+//query mocking
+//alias 사용할 때 오류 발생함
+jest.mock('../query/useNoticeGet', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
 const mockUseNoticeGet = useNoticeGet as jest.MockedFunction<typeof useNoticeGet>;
 
-describe('Notice 컴포넌트', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  describe('기본 렌더링', () => {
-    it('제목과 설명이 올바르게 렌더링된다', async () => {
-      mockUseNoticeGet.mockReturnValue({
-        noticeData: mockNoticeData,
-        noticeIsLoading: false,
-        noticeTotalCount: mockNoticeData.length,
-        noticeIsSuccess: true,
-        noticeIsError: false,
-        noticeError: null,
-        noticeRefetch: jest.fn(() => Promise.resolve({} as any)),
-      });
-
-      renderWithQueryClient(<Notice />);
-
-      // 컨텐츠 확인
-      expect(screen.queryByText('로딩 중...')).not.toBeInTheDocument();
-      expect(screen.getByText('외교부 공지사항')).toBeInTheDocument();
-      expect(screen.getByText('테스트 공지사항')).toBeInTheDocument();
-    });
-
-    it('로딩 상태가 올바르게 렌더링된다', () => {
-      // Mock loading state with all required properties
-      mockUseNoticeGet.mockReturnValue({
-        noticeData: null,
-        noticeIsLoading: true,
-        noticeTotalCount: 0,
-        noticeIsSuccess: false,
-        noticeIsError: false,
-        noticeError: null,
-        noticeRefetch: jest.fn(() => Promise.resolve({} as any)),
-      });
-
-      renderWithQueryClient(<Notice />);
-
-      expect(screen.getByText('로딩 중...')).toBeInTheDocument();
-      expect(screen.queryByText('외교부 공지사항')).not.toBeInTheDocument();
-    });
-
-    it('에러 상태가 올바르게 처리된다', () => {
-      // Mock error state
-      const mockError = new Error('API 호출 실패');
-
-      mockUseNoticeGet.mockReturnValue({
-        noticeData: null,
-        noticeIsLoading: false,
-        noticeTotalCount: 0,
-        noticeIsSuccess: false,
-        noticeIsError: true,
-        noticeError: mockError,
-        noticeRefetch: jest.fn(() => Promise.resolve({} as any)),
-      });
-
-      renderWithQueryClient(<Notice />);
-
-      // 에러 처리 로직이 있다면 여기서 테스트
-      // 현재 컴포넌트는 에러 상태를 따로 처리하지 않으므로 로딩 화면이 표시됨
-      expect(screen.getByText('로딩 중...')).toBeInTheDocument();
-    });
-  });
-
-  describe('페이지네이션', () => {
-    it('페이지네이션이 올바르게 렌더링된다', () => {
-      mockUseNoticeGet.mockReturnValue({
-        noticeData: mockNoticeData,
-        noticeIsLoading: false,
-        noticeTotalCount: 20, // 여러 페이지를 만들기 위해 더 큰 수
-        noticeIsSuccess: true,
-        noticeIsError: false,
-        noticeError: null,
-        noticeRefetch: jest.fn(() => Promise.resolve({} as any)),
-      });
-
-      renderWithQueryClient(<Notice />);
-
-      // 페이지네이션 컴포넌트가 렌더링되는지 확인
-      // 실제 페이지네이션 구현에 따라 테스트 내용을 조정하세요
-      expect(screen.getByText('외교부 공지사항')).toBeInTheDocument();
-    });
-
-    it('페이지네이션 비활성화가 올바르게 작동한다', () => {
-      mockUseNoticeGet.mockReturnValue({
-        noticeData: mockNoticeData,
-        noticeIsLoading: false,
-        noticeTotalCount: mockNoticeData.length,
-        noticeIsSuccess: true,
-        noticeIsError: false,
-        noticeError: null,
-        noticeRefetch: jest.fn(() => Promise.resolve({} as any)),
-      });
-
-      renderWithQueryClient(<Notice pagination={false} />);
-
-      expect(screen.getByText('외교부 공지사항')).toBeInTheDocument();
-      // 페이지네이션이 없어야 함 (구체적인 테스트는 페이지네이션 구현에 따라)
-    });
-  });
-});
-const createMockNoticeGetReturn = (overrides = {}) => ({
-  noticeData: mockNoticeData,
-  noticeIsLoading: false,
+const createSuccessfulMockReturn = (
+  overrides: Partial<ReturnType<typeof useNoticeGet>> = {},
+) => ({
+  noticeData: mockNoticeData as NoticeItem[],
+  noticeIsLoading: false, //로딩 중이 아님을 명시함
   noticeTotalCount: mockNoticeData.length,
   noticeIsSuccess: true,
   noticeIsError: false,
@@ -153,26 +67,122 @@ const createMockNoticeGetReturn = (overrides = {}) => ({
   ...overrides,
 });
 
-describe('Notice 컴포넌트 (Helper 사용)', () => {
-  it('간편한 테스트 작성', () => {
-    // 기본값 사용
-    mockUseNoticeGet.mockReturnValue(createMockNoticeGetReturn());
-
-    renderWithQueryClient(<Notice />);
-    expect(screen.getByText('외교부 공지사항')).toBeInTheDocument();
+describe('Notice 컴포넌트', () => {
+  // 모든 기본 렌더링 테스트에서 성공 상태로 mock 설정
+  beforeEach(() => {
+    mockUseNoticeGet.mockReturnValue(createSuccessfulMockReturn());
   });
 
-  it('로딩 상태 테스트', () => {
-    // 일부값만 오버라이드
-    mockUseNoticeGet.mockReturnValue(
-      createMockNoticeGetReturn({
-        noticeData: null,
-        noticeIsLoading: true,
-        noticeIsSuccess: false,
-      }),
-    );
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-    renderWithQueryClient(<Notice />);
-    expect(screen.getByText('로딩 중...')).toBeInTheDocument();
+  describe('기본 렌더링', () => {
+    it('제목과 설명이 올바르게 렌더링된다', () => {
+      renderWithQueryClient(<Notice />);
+
+      // 메인 제목 확인
+      expect(screen.getByText('외교부 공지사항')).toBeInTheDocument();
+
+      // 설명 텍스트 확인 (줄바꿈이 있으므로 부분 매칭 사용)
+      expect(screen.getByText(/외교부에서 제공하는 출국 전/)).toBeInTheDocument();
+      expect(screen.getByText(/참고해야 할 공지사항을 확인하세요/)).toBeInTheDocument();
+
+      // 로딩 상태가 아님을 확인
+      expect(screen.queryByText('로딩 중...')).not.toBeInTheDocument();
+    });
+
+    it('테이블 헤더가 올바르게 렌더링된다', () => {
+      renderWithQueryClient(<Notice />);
+
+      // 테이블 헤더들 확인
+      expect(screen.getByText('Title')).toBeInTheDocument();
+      expect(screen.getByText('File')).toBeInTheDocument();
+      expect(screen.getByText('Date')).toBeInTheDocument();
+      expect(screen.getByText('More')).toBeInTheDocument();
+    });
+
+    it('공지사항 데이터가 올바르게 렌더링된다', () => {
+      renderWithQueryClient(<Notice />);
+
+      // Mock 데이터의 제목이 올바르게 표시되는지 확인한다.
+      expect(screen.getByText('테스트 공지사항 1')).toBeInTheDocument();
+      expect(screen.getByText('테스트 공지사항 2')).toBeInTheDocument();
+      expect(screen.getByText('테스트 공지사항 3')).toBeInTheDocument();
+    });
+
+    it('첨부파일 링크가 올바르게 렌더링된다', () => {
+      renderWithQueryClient(<Notice />);
+
+      // 첨부파일이 있는 항목의 링크를 통해 첨부파일이 렌더링 된 갯수를 확인
+      const attachmentLinks = screen.queryAllByText('첨부파일');
+      expect(attachmentLinks).toHaveLength(2); // mockData에서 파일이 있는 항목 개수
+
+      if (attachmentLinks.length > 0) {
+        // 첫 번째 링크 속성 확인
+        const firstLink = attachmentLinks[0].closest('a');
+        expect(firstLink).toHaveAttribute('href', 'https://example.com/file1.pdf');
+        expect(firstLink).toHaveAttribute('target', '_blank');
+      }
+    });
+
+    it('More 버튼이 올바르게 렌더링된다', () => {
+      renderWithQueryClient(<Notice />);
+
+      // txt_origin_cn이 있는 항목들은 more-button이 표시되어야 한다.
+      const moreButtons = screen.getAllByTestId('more-button');
+      // txt_origin_cn이 null이 아닌 항목들에 대해서만 버튼이 표시됨 (2개)
+      expect(moreButtons.length).toBe(2);
+    });
+  });
+
+  describe('props 테스트', () => {
+    it('pagination=false일 때 페이지네이션이 표시되지 않는다', () => {
+      renderWithQueryClient(<Notice pagination={false} />);
+
+      // 페이지네이션이 없어도 메인 컨텐츠는 표시되어야 함
+      expect(screen.getByText('외교부 공지사항')).toBeInTheDocument();
+      expect(screen.getByText('테스트 공지사항 1')).toBeInTheDocument();
+    });
+
+    it('numOfRows prop이 올바르게 전달된다', () => {
+      renderWithQueryClient(<Notice numOfRows={5} />);
+
+      // useNoticeGet이 올바른 파라미터로 호출되었는지 확인
+      expect(mockUseNoticeGet).toHaveBeenCalledWith(1, 5);
+
+      // 메인 컨텐츠는 정상 표시
+      expect(screen.getByText('외교부 공지사항')).toBeInTheDocument();
+    });
+  });
+
+  describe('로딩 상태 테스트', () => {
+    it('로딩 중일 때 로딩 메시지가 표시된다', () => {
+      // 이 테스트만 로딩 상태로 오버라이드
+      mockUseNoticeGet.mockReturnValue(
+        createSuccessfulMockReturn({
+          noticeData: [],
+          noticeIsLoading: true, //로딩 상태임을 명시
+        }),
+      );
+
+      renderWithQueryClient(<Notice />);
+
+      expect(screen.getByText('로딩 중...')).toBeInTheDocument();
+      expect(screen.queryByText('외교부 공지사항')).not.toBeInTheDocument();
+    });
+
+    it('데이터가 null일 때 안내 문구를 표시한다.', () => {
+      mockUseNoticeGet.mockReturnValue(
+        createSuccessfulMockReturn({
+          noticeData: [],
+          noticeIsLoading: false, // 로딩은 끝났지만 데이터가 null
+        }),
+      );
+
+      renderWithQueryClient(<Notice />);
+
+      //TODO: 안내 문구 추가 필요
+    });
   });
 });

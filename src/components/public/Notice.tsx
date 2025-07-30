@@ -78,6 +78,7 @@ export default function Notice({ pagination = true, numOfRows = 8 }: NoticeProps
                     <Table.Td>
                       {item.txt_origin_cn && (
                         <button
+                          data-testid={`more-button`}
                           onClick={() => toggle(id)}
                           className='size-12  bg-zinc-100 hover:bg-green-500 rounded-full flex-center'
                         >
